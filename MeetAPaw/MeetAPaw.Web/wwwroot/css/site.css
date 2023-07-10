@@ -1,0 +1,27 @@
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    background-image: url("https://img.freepik.com/free-vector/seamless-animal-pattern-background-cute-paw-print-vector-illustration_53876-156206.jpg?w=826&t=st=1688487582~exp=1688488182~hmac=89d75a0c08a65229c690cee0dbf30a0eb6735dfb267695904a6d2a6fd7091477");
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.imageAboutPage {
+    width: 100%;
+}

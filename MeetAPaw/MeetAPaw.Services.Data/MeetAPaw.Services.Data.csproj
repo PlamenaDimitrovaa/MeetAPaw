@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeetAPaw.Common\MeetAPaw.Common.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Data.Models\MeetAPaw.Data.Models.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Data\MeetAPaw.Data.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Web.ViewModels\MeetAPaw.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

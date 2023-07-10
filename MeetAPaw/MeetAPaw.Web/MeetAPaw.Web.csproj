@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-MeetAPaw.Web-1725a8b2-57dd-4aff-9f77-a50d00e5aaf1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeetAPaw.Common\MeetAPaw.Common.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Data.Models\MeetAPaw.Data.Models.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Data\MeetAPaw.Data.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Services.Data\MeetAPaw.Services.Data.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Web.Infrastructure\MeetAPaw.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Web.ViewModels\MeetAPaw.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
