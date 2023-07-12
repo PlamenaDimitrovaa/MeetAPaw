@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace MeetAPaw.Web.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public HomeController()
         {

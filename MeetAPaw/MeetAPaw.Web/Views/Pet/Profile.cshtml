@@ -9,53 +9,56 @@
 <div class="text-center">
     <h1 class="display-1 justify-content-center"><strong>Welcome to my personal page!</strong></h1>
 </div>
-<input asp-for="@Model.Id" type="hidden" />
 
 <section id="about">
     <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
         <h3 class="text-center">About Me</h3>
         <div class="row mt-4">
             <div class="col-lg-4">
-                <img src="@Model.ImageUrl" class="imageAboutPage" alt="">
+                <img src="@Model.ImageUrl" class="imageAboutPage" alt="photo of me">
             </div>
+        
 
-            <div class="col-lg-8">
-                <p>
-                    I am one @Model.Description.ToLower()
-                </p>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <ul>
-                            <li>Name: @Model.Name</li>
-                            <li>Date Of Birth: @Model.DateOfBirth</li>
-                            <li>Pet Type: @Model.PetType</li>
-                            <li>Pet Gender: @Model.Gender</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul>
-                            @if(Model.Breed != null)
-                            {
-                                <li>Breed: @Model.Breed</li>
-                            }
-                            <li>Address: @Model.Address</li>
-                            <li>Color: @Model.Color</li>
-
-                        </ul>
-                    </div>
+        <div class="col-lg-8">
+            <p>
+                I am one @Model.Description.ToLower()
+            </p>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <ul>
+                        <li>Name: @Model.Name</li>
+                        <li>Date Of Birth: @Model.DateOfBirth</li>
+                        <li>Pet Type: @Model.PetType</li>
+                        <li>Pet Gender: @Model.Gender</li>
+                    </ul>
                 </div>
-                @if (User.Identity.Name == Model.Owner)
-                {
-                    <a href="Edit" class="btn btn-primary btn-warning">Edit</a>
-                }
+                <div class="col-md-6">
+                    <ul>
+                        @if (Model.Breed != null)
+                        {
+                            <li>Breed: @Model.Breed</li>
+                        }
+                        <li>Address: @Model.Address</li>
+                        <li>Color: @Model.Color</li>
+
+                    </ul>
+                </div>
             </div>
+            @if (User.Identity.Name == Model.Owner)
+            {
+                <a asp-controller="Pet" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            }
+              <a asp-controller="Pet" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Pets</a>
         </div>
+    </div>
+</div>
 </section>
+
+@if (User.Identity.Name != Model.Owner)
+{
 <section id="message">
     <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
         <h3 class="text-center">Contact Me</h3>
-        @if (User.Identity.Name == Model.Owner)
-        {
             <div class="row mt-3">
                 <p>
                     I am searching for new adventures and I will be happy if you do it too !
@@ -64,8 +67,12 @@
                 </p>
             </div>
             <div class=". text-center">
-                 <a href="Message" class="btn btn-primary">Send a message</a>
+                <a href="Message" class="btn btn-primary">Send a message</a>
             </div>
-        }
     </div>
 </section>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

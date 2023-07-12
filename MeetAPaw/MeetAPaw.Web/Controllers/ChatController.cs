@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MeetAPaw.Web.Controllers
 {
     [Authorize]
-    public class ChatController : Controller
+    public class ChatController : BaseController
     {
         public IActionResult Index()
         {

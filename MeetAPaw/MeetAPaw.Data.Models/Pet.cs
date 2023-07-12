@@ -19,6 +19,7 @@ namespace MeetAPaw.Data.Models
         [ForeignKey(nameof(PetTypeId))]
         public PetType PetType { get; set; } = null!;
 
+        [MaxLength(BreedMaxLength)]
         public string? Breed { get; set; }
 
         [Required]

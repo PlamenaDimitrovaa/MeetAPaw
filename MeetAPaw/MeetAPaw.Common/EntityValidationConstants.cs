@@ -16,6 +16,9 @@ namespace MeetAPaw.Common
 
             public const int ImageUrlMaxLength = 2048;
 
+            public const int BreedMinLength = 5;
+            public const int BreedMaxLength = 50;
+
             public const int ColorMinLength = 3;
             public const int ColorMaxLength = 50;
         }

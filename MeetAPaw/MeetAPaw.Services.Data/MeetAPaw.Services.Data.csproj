@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MeetAPaw.Common\MeetAPaw.Common.csproj" />
     <ProjectReference Include="..\MeetAPaw.Data.Models\MeetAPaw.Data.Models.csproj" />
     <ProjectReference Include="..\MeetAPaw.Data\MeetAPaw.Data.csproj" />

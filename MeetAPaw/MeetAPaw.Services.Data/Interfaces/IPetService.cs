@@ -9,9 +9,9 @@ namespace MeetAPaw.Services.Data.Interfaces
 
         Task<PetProfileViewModel> GetProfileAsync(int id);
 
-        Task<AddPetViewModel> GetNewAddPetAsync();
+        //Task<AddPetViewModel> GetNewAddPetAsync();
 
-        Task AddPetAsync(AddPetViewModel model);
+        Task AddPetAsync(AddPetViewModel model, string ownerId);
 
         Task<PetViewModel?> GetPetByIdAsync(int id);
 
