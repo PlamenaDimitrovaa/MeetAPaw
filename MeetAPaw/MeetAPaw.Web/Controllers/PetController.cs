@@ -35,10 +35,10 @@ namespace MeetAPaw.Web.Controllers
         {
             var model = await service.GetProfileAsync(id);
 
-            //if (model == null)
-            //{
-            //    return BadRequest();
-            //}
+            if (model == null)
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }
