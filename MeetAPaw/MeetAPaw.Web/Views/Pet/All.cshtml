@@ -12,19 +12,25 @@
 {
     <h2 class="text-center">No pets added yet.</h2>
 }
-    @foreach (var pet in Model)
-    {
-        <div class="card" style="width: 18rem;">
-            <img src="@pet.ImageUrl" class="card-img-top" alt="Pet Photo">
-            <div class="card-body">
-                <h5 class="card-title">@pet.Name</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">@pet.PetType - @pet.Breed</h6>
-                <p class="card-text">@pet.Description</p>
-                <a asp-controller="Pet" asp-action="Profile" asp-route-id="@pet.Id" class="btn btn-primary">See profile</a>
-            </div>
-        </div>
-    }
 
+<div class="container-fluid padding">
+    <div class="row">
+        <div class="row padding">
+            @foreach (var pet in Model)
+            {
+                <div class="card" style="width: 18rem;">
+                    <img src="@pet.ImageUrl" class="card-img-top" alt="Pet Photo">
+                    <div class="card-body">
+                        <h5 class="card-title">@pet.Name</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@pet.PetType - @pet.Breed</h6>
+                        <p class="card-text">@pet.Description</p>
+                        <a asp-controller="Pet" asp-action="Profile" asp-route-id="@pet.Id" class="btn btn-primary">See profile</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
