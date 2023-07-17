@@ -28,8 +28,4 @@
     <ProjectReference Include="..\MeetAPaw.Web.ViewModels\MeetAPaw.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Adopt\" />
-  </ItemGroup>
-
 </Project>

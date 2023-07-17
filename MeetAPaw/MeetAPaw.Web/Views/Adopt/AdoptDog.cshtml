@@ -1,0 +1,11 @@
+﻿@model IEnumerable<AdoptPetViewModel>
+
+@{
+    ViewBag.Title = "Adopt Dog";
+}
+
+<partial name="_AdoptionOfPetsPartialView" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
