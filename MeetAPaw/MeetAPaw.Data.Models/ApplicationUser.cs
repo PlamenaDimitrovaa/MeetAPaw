@@ -12,7 +12,6 @@ namespace MeetAPaw.Data.Models
             this.OwnedPets = new HashSet<Pet>();
             this.PetsForAdoption = new HashSet<PetForAdoption>();
         }
-
         public virtual ICollection<Pet> OwnedPets { get; set; }
 
         public virtual ICollection<PetForAdoption> PetsForAdoption { get; set; }
