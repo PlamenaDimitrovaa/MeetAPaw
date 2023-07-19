@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 using static MeetAPaw.Common.EntityValidationConstants.PetForAdoption;
 using MeetAPaw.Web.ViewModels.Shelter;
+using MeetAPaw.Web.ViewModels.PetType;
 
 namespace MeetAPaw.Web.ViewModels.PetForAdoption
 {
@@ -12,6 +13,7 @@ namespace MeetAPaw.Web.ViewModels.PetForAdoption
         public AddPetForAdoptionViewModel()
         {
             this.Shelters = new HashSet<ShelterViewModel>();
+            this.PetsTypes = new HashSet<PetTypeViewModel>();
         }
 
         [Required]
@@ -54,7 +56,12 @@ namespace MeetAPaw.Web.ViewModels.PetForAdoption
         [Required]
         public int ShelterId { get; set; }
 
+        [Required]
+        public string UserId { get; set; } = null!;
+
         public IEnumerable<ShelterViewModel> Shelters { get; set; }
+
+        public IEnumerable<PetTypeViewModel> PetsTypes { get; set; }
 
     }
 }

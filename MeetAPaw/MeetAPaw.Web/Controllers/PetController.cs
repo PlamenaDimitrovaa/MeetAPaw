@@ -58,7 +58,7 @@ namespace MeetAPaw.Web.Controllers
            
             if (!isOwner)
             {
-                this.TempData[ErrorMessage] = "You must become an owner in order to add new houses!";
+                this.TempData[ErrorMessage] = "You must become an owner in order to add new pets!";
 
                 return this.RedirectToAction("Adopt", "Owner"); //!!!!
            
@@ -83,7 +83,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!isOwner)
             {
-                this.TempData[ErrorMessage] = "You must become an owner in order to add new houses!";
+                this.TempData[ErrorMessage] = "You must become an owner in order to add new pets!";
 
                 return this.RedirectToAction("Adopt", "Owner"); //!!!!
 
@@ -111,7 +111,7 @@ namespace MeetAPaw.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new house! Please try again later or contact administrator.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new pet! Please try again later or contact administrator.");
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 return this.View(model);
             }
