@@ -1,0 +1,60 @@
+﻿@model PetForAdoptionProfileViewModel
+@{
+    ViewBag.Title = "Personal Profile";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+<div class="text-center">
+    <h1 class="display-1 justify-content-center"><strong>Welcome to my personal profile!</strong></h1>
+</div>
+<input asp-for="@Model.Id" type="hidden" />
+<section id="about">
+    <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
+        <h3 class="text-center">About Me</h3>
+        <div class="row mt-4">
+            <div class="col-lg-4">
+                <img src="@Model.ImageUrl" class="imageAboutPage" alt="photo of me">
+            </div>
+
+
+            <div class="col-lg-8">
+                <p>
+                    I am one @Model.Description.ToLower()
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Name: @Model.Name</li>
+                            <li>Date Of Birth: @Model.DateOfBirth</li>
+                            <li>Pet Type: @Model.PetType</li>
+                            <li>Pet Gender: @Model.Gender</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            @if (Model.Breed != null)
+                            {
+                                <li>Breed: @Model.Breed</li>
+                            }
+                            @if (Model.Address != null)
+                            {
+                                <li>Address: @Model.Address</li>
+                            }
+                            <li>Shelter: @Model.Shelter</li>
+                            <li>Color: @Model.Color</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <a asp-controller="Adopt" asp-action="Adopt" asp-route-id="@Model.Id" class="btn btn-warning">Adopt me!</a>
+                <a asp-controller="PetForAdoption" asp-action="All" class="btn btn-primary">All Pets For Adoption</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

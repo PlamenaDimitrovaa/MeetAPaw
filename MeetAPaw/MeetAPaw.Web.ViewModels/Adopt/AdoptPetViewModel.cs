@@ -11,6 +11,8 @@ namespace MeetAPaw.Web.ViewModels.Adopt
 
         public string Description { get; set; } = null!;
 
+        public string Color { get; set; } = null!;
+
         public string ImageUrl { get; set; } = null!;
 
         public string Gender { get; set; } = null!;

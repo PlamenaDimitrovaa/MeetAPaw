@@ -5,6 +5,7 @@ using MeetAPaw.Data.Models.Enums;
 using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Web.ViewModels.Pet;
 using MeetAPaw.Web.ViewModels.PetForAdoption;
+using Microsoft.EntityFrameworkCore;
 
 namespace MeetAPaw.Services.Data
 {
@@ -30,10 +31,33 @@ namespace MeetAPaw.Services.Data
                 Gender = Enum.Parse<PetGender>(model.Gender),
                 DateOfBirth = DateTime.Parse(model.DateOfBirth),
                 PetTypeId = model.PetTypeId,
+                IsAdopted = false,
+                ShelterId = model.ShelterId,
             };
 
             await this.context.PetsForAdoption.AddAsync(pet);
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<PetForAdoptionProfileViewModel> GetProfileToPetForAdoptionAsync(int id)
+        {
+            return await context.PetsForAdoption
+                 .Where(p => p.Id == id)
+                 .Select(p => new PetForAdoptionProfileViewModel()
+                 {
+                     Id = p.Id,
+                     Name = p.Name,
+                     Address = p.Address,
+                     ImageUrl = p.ImageUrl,
+                     Description = p.Description,
+                     Gender = p.Gender.ToString(),
+                     DateOfBirth = p.DateOfBirth.ToString("yyyy/MM/dd"),
+                     PetType = p.PetType.Name,
+                     Breed = p.Breed,
+                     Color = p.Color,
+                     Shelter = p.Shelter.Name
+                 })
+             .FirstOrDefaultAsync();
         }
     }
 }

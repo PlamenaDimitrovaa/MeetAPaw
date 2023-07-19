@@ -50,10 +50,10 @@ namespace MeetAPaw.Web.ViewModels.PetForAdoption
         public bool IsAdopted { get; set; }
 
         [Required]
-        public int ShelterId { get; set; }
+        public string UserId { get; set; } = null!;
 
         [Required]
-        public string UserId { get; set; } = null!;
+        public int ShelterId { get; set; }
 
         public IEnumerable<ShelterViewModel> Shelters { get; set; }
 

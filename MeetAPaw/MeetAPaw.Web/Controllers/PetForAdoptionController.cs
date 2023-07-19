@@ -22,6 +22,18 @@ namespace MeetAPaw.Web.Controllers
             this.shelterService = shelterService;
         }
 
+        public async Task<IActionResult> Profile(int id)
+        {
+            var model = await this.service.GetProfileToPetForAdoptionAsync(id);
+
+            if (model == null)
+            {
+                return BadRequest();
+            }
+
+            return View(model);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
