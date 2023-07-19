@@ -17,14 +17,13 @@ namespace MeetAPaw.Services.Data
             this.context = context;
         }
 
-        public async Task AddPetAsync(AddPetForAdoptionViewModel model)
+        public async Task AddPetForAdoptionAsync(AddPetForAdoptionViewModel model)
         {
             PetForAdoption pet = new PetForAdoption()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Breed = model.Breed,
-                Address = model.Address,
                 Description = model.Description,
                 Color = model.Color,
                 ImageUrl = model.ImageUrl,

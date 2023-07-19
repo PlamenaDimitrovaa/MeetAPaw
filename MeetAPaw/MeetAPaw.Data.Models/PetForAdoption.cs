@@ -30,9 +30,7 @@ namespace MeetAPaw.Data.Models
 
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
-        [MaxLength(AddressMaxLength)]
-        public string Address { get; set; } = null!;
+        public string? Address { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]

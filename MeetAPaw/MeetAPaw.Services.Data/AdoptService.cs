@@ -23,7 +23,6 @@ namespace MeetAPaw.Services.Data
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Address = p.Address,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Gender = p.Gender.ToString(),
@@ -42,7 +41,6 @@ namespace MeetAPaw.Services.Data
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Address = p.Address,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Gender = p.Gender.ToString(),
@@ -61,7 +59,6 @@ namespace MeetAPaw.Services.Data
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Address = p.Address,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Gender = p.Gender.ToString(),
@@ -80,7 +77,6 @@ namespace MeetAPaw.Services.Data
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Address = p.Address,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Gender = p.Gender.ToString(),
@@ -99,7 +95,6 @@ namespace MeetAPaw.Services.Data
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Address = p.Address,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Gender = p.Gender.ToString(),

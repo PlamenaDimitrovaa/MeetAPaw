@@ -40,10 +40,6 @@ namespace MeetAPaw.Web.ViewModels.PetForAdoption
         public string DateOfBirth { get; set; } = null!;
 
         [Required]
-        [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
-        public string Address { get; set; } = null!;
-
-        [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = null!;
 
