@@ -87,7 +87,7 @@ namespace MeetAPaw.Web.Controllers
                 return this.View(model);
             }
 
-            return RedirectToAction("All", "Pet");
+            return RedirectToAction("Adopt", "Adopt");
         }
     }
 }

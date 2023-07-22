@@ -53,7 +53,7 @@ namespace MeetAPaw.Data.Migrations
 
                     b.HasIndex("ShelterId");
 
-                    b.ToTable("Adoptions");
+                    b.ToTable("Adoptions", (string)null);
                 });
 
             modelBuilder.Entity("MeetAPaw.Data.Models.ApplicationUser", b =>
@@ -144,7 +144,7 @@ namespace MeetAPaw.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", (string)null);
                 });
 
             modelBuilder.Entity("MeetAPaw.Data.Models.Pet", b =>
@@ -211,7 +211,7 @@ namespace MeetAPaw.Data.Migrations
 
                     b.HasIndex("PetTypeId1");
 
-                    b.ToTable("Pets");
+                    b.ToTable("Pets", (string)null);
 
                     b.HasData(
                         new
@@ -289,7 +289,7 @@ namespace MeetAPaw.Data.Migrations
 
                     b.HasIndex("ShelterId");
 
-                    b.ToTable("PetsForAdoption");
+                    b.ToTable("PetsForAdoption", (string)null);
                 });
 
             modelBuilder.Entity("MeetAPaw.Data.Models.PetType", b =>
@@ -307,7 +307,7 @@ namespace MeetAPaw.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PetsTypes");
+                    b.ToTable("PetsTypes", (string)null);
 
                     b.HasData(
                         new
@@ -352,7 +352,7 @@ namespace MeetAPaw.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shelters");
+                    b.ToTable("Shelters", (string)null);
 
                     b.HasData(
                         new

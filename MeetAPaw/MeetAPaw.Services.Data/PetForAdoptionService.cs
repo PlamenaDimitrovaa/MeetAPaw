@@ -39,7 +39,7 @@ namespace MeetAPaw.Services.Data
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<PetForAdoptionProfileViewModel> GetProfileToPetForAdoptionAsync(int id)
+        public async Task<PetForAdoptionProfileViewModel?> GetProfileToPetForAdoptionAsync(int id)
         {
             return await context.PetsForAdoption
                  .Where(p => p.Id == id)
@@ -55,7 +55,7 @@ namespace MeetAPaw.Services.Data
                      PetType = p.PetType.Name,
                      Breed = p.Breed,
                      Color = p.Color,
-                     Shelter = p.Shelter.Name
+                     Shelter = p.Shelter.Name,
                  })
              .FirstOrDefaultAsync();
         }

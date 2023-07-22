@@ -7,6 +7,6 @@ namespace MeetAPaw.Services.Data.Interfaces
     {
         public Task AddPetForAdoptionAsync(AddPetForAdoptionViewModel model);
 
-        public Task<PetForAdoptionProfileViewModel> GetProfileToPetForAdoptionAsync(int id);
+        public Task<PetForAdoptionProfileViewModel?> GetProfileToPetForAdoptionAsync(int id);
     }
 }

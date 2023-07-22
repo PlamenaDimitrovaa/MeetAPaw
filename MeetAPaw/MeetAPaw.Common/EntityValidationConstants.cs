@@ -69,38 +69,5 @@ namespace MeetAPaw.Common
             public const int AddressMinLength = 5;
             public const int AddressMaxLength = 100;
         }
-
-        //public static class Breed
-        //{
-        //    public const int NameMinLength = 2;
-        //    public const int NameMaxLength = 60;
-        //}
-
-        //public static class Event
-        //{
-        //    public const int NameMinLength = 3;
-        //    public const int NameMaxLength = 50;
-
-        //    public const int PlaceMinLength = 5;
-        //    public const int PlaceMaxLength = 50;
-        //}
-
-        //public static class Hobby
-        //{
-        //    public const int NameMinLength = 2;
-        //    public const int NameMaxLength = 50;
-        //}
-
-        //public static class Meeting
-        //{
-        //    public const int PlaceMinLength = 5;
-        //    public const int PlaceMaxLength = 50;
-        //}
-
-        //public static class Chat
-        //{
-        //    public const int ContentMinLength = 1;
-        //    public const int ContentMaxLength = 2000;
-        //}
     }
 }

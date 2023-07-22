@@ -58,6 +58,5 @@ namespace MeetAPaw.Web.ViewModels.PetForAdoption
         public IEnumerable<ShelterViewModel> Shelters { get; set; }
 
         public IEnumerable<PetTypeViewModel> PetsTypes { get; set; }
-
     }
 }

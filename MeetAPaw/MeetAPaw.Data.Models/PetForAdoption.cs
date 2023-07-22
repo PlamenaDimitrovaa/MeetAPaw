@@ -44,5 +44,10 @@ namespace MeetAPaw.Data.Models
 
         [ForeignKey(nameof(ShelterId))]
         public virtual Shelter Shelter { get; set; } = null!;
+
+        public Guid UserId { get; set; }
+
+        [ForeignKey(nameof(UserId))]
+        public virtual ApplicationUser User { get; set; } = null!;
     }
 }

@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 using MeetAPaw.Data.Models;
 
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
