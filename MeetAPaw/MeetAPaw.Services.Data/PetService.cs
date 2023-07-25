@@ -54,24 +54,6 @@ namespace MeetAPaw.Services.Data
                 .ToListAsync();
         }
 
-        //public async Task<AddPetViewModel> GetNewAddPetAsync()
-        //{
-        //    var petTypes = await context.PetsTypes
-        //        .Select(pt => new PetTypeViewModel()
-        //        {
-        //            Id = pt.Id,
-        //            Name = pt.Name,
-        //        })
-        //        .ToListAsync();
-
-        //    var model = new AddPetViewModel()
-        //    {
-        //        PetsTypes = petTypes
-        //    };
-
-        //    return model;
-        //}
-
         public async Task<PetViewModel?> GetPetByIdAsync(int id)
         {
             return await this.context.Pets
@@ -89,6 +71,49 @@ namespace MeetAPaw.Services.Data
                     Breed = p.Breed
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditPetViewModel> GetPetForEditByIdAsync(int id)
+        {
+            Pet pet = await this.context
+                .Pets
+                .Include(p => p.PetType)
+                .FirstAsync(p => p.Id == id);
+
+            return new EditPetViewModel()
+            {
+                Id = pet.Id,
+                Name = pet.Name,
+                Address = pet.Address,
+                Description = pet.Description,
+                ImageUrl = pet.ImageUrl,
+                Gender = pet.Gender.ToString(),
+                Breed = pet.Breed,
+                Color = pet.Color,
+                DateOfBirth = pet.DateOfBirth.ToString(),
+                OwnerId = pet.OwnerId.ToString(),
+                PetTypeId = pet.PetTypeId
+            };
+        }
+
+        public async Task EditPetByIdAsync(int id, EditPetViewModel model)
+        {
+            Pet pet = await this.context
+                .Pets
+                .FirstAsync(h => h.Id == id);
+
+            pet.Name = model.Name;
+            pet.Address = model.Address;
+            pet.Description = model.Description;
+            pet.ImageUrl = model.ImageUrl;
+            pet.Breed = model.Breed;
+            pet.Color = model.Color;
+            pet.DateOfBirth = DateTime.Parse(model.DateOfBirth);
+            pet.OwnerId = Guid.Parse(model.OwnerId);
+            pet.Gender = Enum.Parse<PetGender>(model.Gender);
+            pet.PetTypeId = model.PetTypeId;
+
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<PetProfileViewModel?> GetProfileAsync(int id)
@@ -110,6 +135,15 @@ namespace MeetAPaw.Services.Data
                 Color = p.Color
             })
             .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> PetExistsByIdAsync(int id)
+        {
+            bool result = await this.context
+                .Pets
+                .AnyAsync(p => p.Id == id);
+
+            return result;
         }
     }
 }

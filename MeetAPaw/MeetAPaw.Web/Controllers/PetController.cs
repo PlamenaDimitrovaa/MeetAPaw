@@ -57,8 +57,6 @@ namespace MeetAPaw.Web.Controllers
                 PetsTypes = await this.petTypeService.AllPetTypesAsync()
             };
 
-           // var model = await service.GetNewAddPetAsync();
-
             viewModel.OwnerId = GetUserId();
 
             return View(viewModel); 
@@ -94,5 +92,61 @@ namespace MeetAPaw.Web.Controllers
 
             return RedirectToAction("All", "Pet");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                EditPetViewModel viewModel = await this.service.GetPetForEditByIdAsync(id);
+
+                viewModel.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+
+                viewModel.OwnerId = GetUserId();
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditPetViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+
+                return this.View(model);
+            }
+
+            bool petExists = await this.service
+                .PetExistsByIdAsync(id);
+
+            if (!petExists)
+            {
+                this.TempData[ErrorMessage] = "House with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "House");
+            }
+
+            try
+            {
+                await this.service.EditPetByIdAsync(id, model);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty,
+                    "Unexpected error occurred while trying to update the pet. Please try again later or contact administrator!");
+                model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("Profile", "Pet", new { id });
+        }
+
     }
 }
