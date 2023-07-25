@@ -1,6 +1,7 @@
 using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static MeetAPaw.Web.Infrastructure.Extensions.WebApplicationBuilderExtensions;
 
@@ -35,7 +36,11 @@ namespace MeetAPaw.Web
             })
                 .AddEntityFrameworkStores<MeetAPawDbContext>();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                });
 
            builder.Services.AddApplicationServices(typeof(IPetService));
 

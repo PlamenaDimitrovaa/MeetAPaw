@@ -30,7 +30,7 @@ namespace MeetAPaw.Data.Configurations
                 Address = "Blagoevgrad, Bulgaria",
                 Description = "Incredible dog with a lot of charm and cute vision.",
                 Gender = Models.Enums.PetGender.Male,
-                OwnerId = Guid.Parse("1cfeec8d-70dc-4bc3-ba9d-5f125b3a0c1a")
+                OwnerId = Guid.Parse("84520237-AA53-4477-A543-7B10C4FD91A1")
             };
 
             pets.Add(pet);

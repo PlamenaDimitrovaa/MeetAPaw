@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeetAPaw.Data.Migrations
 {
     [DbContext(typeof(MeetAPawDbContext))]
-    [Migration("20230719165941_SeedDataForShelters")]
-    partial class SeedDataForShelters
+    [Migration("20230725160425_RemovedAdopterTableAndAddedInverseProperties")]
+    partial class RemovedAdopterTableAndAddedInverseProperties
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,31 +124,6 @@ namespace MeetAPaw.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("MeetAPaw.Data.Models.Owner", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Owners");
-                });
-
             modelBuilder.Entity("MeetAPaw.Data.Models.Pet", b =>
                 {
                     b.Property<int>("Id")
@@ -161,9 +136,6 @@ namespace MeetAPaw.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Breed")
                         .HasMaxLength(50)
@@ -200,18 +172,11 @@ namespace MeetAPaw.Data.Migrations
                     b.Property<int>("PetTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PetTypeId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("OwnerId");
 
                     b.HasIndex("PetTypeId");
-
-                    b.HasIndex("PetTypeId1");
 
                     b.ToTable("Pets");
 
@@ -227,7 +192,7 @@ namespace MeetAPaw.Data.Migrations
                             Gender = 0,
                             ImageUrl = "https://img.freepik.com/free-photo/chihuahua-cute-pet-lovely-animal-cap-concept_53876-65101.jpg?w=996&t=st=1688976253~exp=1688976853~hmac=6cf748d837e8c94d718ff937d582bd777adf75521da98181da10ab93681d35d5",
                             Name = "Vais",
-                            OwnerId = new Guid("1cfeec8d-70dc-4bc3-ba9d-5f125b3a0c1a"),
+                            OwnerId = new Guid("84520237-aa53-4477-a543-7b10c4fd91a1"),
                             PetTypeId = 1
                         });
                 });
@@ -241,11 +206,9 @@ namespace MeetAPaw.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ApplicationUserId")
+                    b.Property<Guid?>("AdopterId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Breed")
@@ -285,13 +248,18 @@ namespace MeetAPaw.Data.Migrations
                     b.Property<int>("ShelterId")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("AdopterId");
 
                     b.HasIndex("PetTypeId");
 
                     b.HasIndex("ShelterId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PetsForAdoption");
                 });
@@ -541,9 +509,9 @@ namespace MeetAPaw.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("MeetAPaw.Data.Models.Shelter", "Shelter")
-                        .WithMany()
+                        .WithMany("Adoptions")
                         .HasForeignKey("ShelterId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Adopter");
@@ -553,38 +521,19 @@ namespace MeetAPaw.Data.Migrations
                     b.Navigation("Shelter");
                 });
 
-            modelBuilder.Entity("MeetAPaw.Data.Models.Owner", b =>
+            modelBuilder.Entity("MeetAPaw.Data.Models.Pet", b =>
                 {
-                    b.HasOne("MeetAPaw.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("MeetAPaw.Data.Models.ApplicationUser", "Owner")
+                        .WithMany("OwnedPets")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MeetAPaw.Data.Models.Pet", b =>
-                {
-                    b.HasOne("MeetAPaw.Data.Models.ApplicationUser", null)
-                        .WithMany("OwnedPets")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("MeetAPaw.Data.Models.Owner", "Owner")
-                        .WithMany("Pets")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MeetAPaw.Data.Models.PetType", "PetType")
-                        .WithMany()
-                        .HasForeignKey("PetTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MeetAPaw.Data.Models.PetType", null)
                         .WithMany("Pets")
-                        .HasForeignKey("PetTypeId1");
+                        .HasForeignKey("PetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
 
@@ -593,25 +542,35 @@ namespace MeetAPaw.Data.Migrations
 
             modelBuilder.Entity("MeetAPaw.Data.Models.PetForAdoption", b =>
                 {
-                    b.HasOne("MeetAPaw.Data.Models.ApplicationUser", null)
+                    b.HasOne("MeetAPaw.Data.Models.ApplicationUser", "Adopter")
                         .WithMany("PetsForAdoption")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("AdopterId");
 
                     b.HasOne("MeetAPaw.Data.Models.PetType", "PetType")
                         .WithMany()
                         .HasForeignKey("PetTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MeetAPaw.Data.Models.Shelter", "Shelter")
                         .WithMany("PetsForAdoption")
                         .HasForeignKey("ShelterId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("MeetAPaw.Data.Models.ApplicationUser", "User")
+                        .WithMany("PetsForAdoptionAdded")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Adopter");
 
                     b.Navigation("PetType");
 
                     b.Navigation("Shelter");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -670,11 +629,8 @@ namespace MeetAPaw.Data.Migrations
                     b.Navigation("OwnedPets");
 
                     b.Navigation("PetsForAdoption");
-                });
 
-            modelBuilder.Entity("MeetAPaw.Data.Models.Owner", b =>
-                {
-                    b.Navigation("Pets");
+                    b.Navigation("PetsForAdoptionAdded");
                 });
 
             modelBuilder.Entity("MeetAPaw.Data.Models.PetType", b =>
@@ -684,6 +640,8 @@ namespace MeetAPaw.Data.Migrations
 
             modelBuilder.Entity("MeetAPaw.Data.Models.Shelter", b =>
                 {
+                    b.Navigation("Adoptions");
+
                     b.Navigation("PetsForAdoption");
                 });
 #pragma warning restore 612, 618

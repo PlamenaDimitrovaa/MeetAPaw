@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MeetAPaw.Data.Migrations
 {
-    public partial class initializeDb : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -97,6 +97,26 @@ namespace MeetAPaw.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Adopters",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adopters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Adopters_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -182,20 +202,35 @@ namespace MeetAPaw.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Owners",
+                name: "Pets",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    PetTypeId = table.Column<int>(type: "int", nullable: false),
+                    Breed = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Owners", x => x.Id);
+                    table.PrimaryKey("PK_Pets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Owners_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Pets_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pets_PetsTypes_PetTypeId",
+                        column: x => x.PetTypeId,
+                        principalTable: "PetsTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -212,79 +247,40 @@ namespace MeetAPaw.Data.Migrations
                     Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     IsAdopted = table.Column<bool>(type: "bit", nullable: false),
                     ShelterId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AdopterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PetsForAdoption", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PetsForAdoption_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_PetsForAdoption_Adopters_AdopterId",
+                        column: x => x.AdopterId,
+                        principalTable: "Adopters",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PetsForAdoption_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PetsForAdoption_PetsTypes_PetTypeId",
                         column: x => x.PetTypeId,
                         principalTable: "PetsTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PetsForAdoption_Shelters_ShelterId",
                         column: x => x.ShelterId,
                         principalTable: "Shelters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    PetTypeId = table.Column<int>(type: "int", nullable: false),
-                    Breed = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    PetTypeId1 = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pets_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Pets_Owners_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Owners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Pets_PetsTypes_PetTypeId",
-                        column: x => x.PetTypeId,
-                        principalTable: "PetsTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Pets_PetsTypes_PetTypeId1",
-                        column: x => x.PetTypeId1,
-                        principalTable: "PetsTypes",
-                        principalColumn: "Id");
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -303,9 +299,9 @@ namespace MeetAPaw.Data.Migrations
                 {
                     table.PrimaryKey("PK_Adoptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Adoptions_AspNetUsers_AdopterId",
+                        name: "FK_Adoptions_Adopters_AdopterId",
                         column: x => x.AdopterId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Adopters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -319,19 +315,13 @@ namespace MeetAPaw.Data.Migrations
                         column: x => x.ShelterId,
                         principalTable: "Shelters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "PetsTypes",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Dog" },
-                    { 2, "Cat" },
-                    { 3, "Bird" },
-                    { 4, "Rabbit" }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Adopters_UserId",
+                table: "Adopters",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Adoptions_AdopterId",
@@ -388,16 +378,6 @@ namespace MeetAPaw.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Owners_UserId",
-                table: "Owners",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pets_ApplicationUserId",
-                table: "Pets",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pets_OwnerId",
                 table: "Pets",
                 column: "OwnerId");
@@ -408,14 +388,9 @@ namespace MeetAPaw.Data.Migrations
                 column: "PetTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pets_PetTypeId1",
-                table: "Pets",
-                column: "PetTypeId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PetsForAdoption_ApplicationUserId",
+                name: "IX_PetsForAdoption_AdopterId",
                 table: "PetsForAdoption",
-                column: "ApplicationUserId");
+                column: "AdopterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PetsForAdoption_PetTypeId",
@@ -426,6 +401,11 @@ namespace MeetAPaw.Data.Migrations
                 name: "IX_PetsForAdoption_ShelterId",
                 table: "PetsForAdoption",
                 column: "ShelterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PetsForAdoption_UserId",
+                table: "PetsForAdoption",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -458,7 +438,7 @@ namespace MeetAPaw.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Owners");
+                name: "Adopters");
 
             migrationBuilder.DropTable(
                 name: "PetsTypes");

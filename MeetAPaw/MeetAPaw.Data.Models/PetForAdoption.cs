@@ -49,5 +49,10 @@ namespace MeetAPaw.Data.Models
 
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; } = null!;
+        
+        public Guid? AdopterId { get; set; }
+
+        [ForeignKey(nameof(AdopterId))]
+        public virtual ApplicationUser? Adopter { get; set; }
     }
 }

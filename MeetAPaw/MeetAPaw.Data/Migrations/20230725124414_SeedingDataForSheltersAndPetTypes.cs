@@ -4,19 +4,20 @@
 
 namespace MeetAPaw.Data.Migrations
 {
-    public partial class SeedDataForShelters : Migration
+    public partial class SeedingDataForSheltersAndPetTypes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Breed",
-                table: "Pets",
-                type: "nvarchar(50)",
-                maxLength: 50,
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+            migrationBuilder.InsertData(
+                table: "PetsTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Dog" },
+                    { 2, "Cat" },
+                    { 3, "Bird" },
+                    { 4, "Rabbit" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Shelters",
@@ -33,6 +34,26 @@ namespace MeetAPaw.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "PetsTypes",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "PetsTypes",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "PetsTypes",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "PetsTypes",
+                keyColumn: "Id",
+                keyValue: 4);
+
             migrationBuilder.DeleteData(
                 table: "Shelters",
                 keyColumn: "Id",
@@ -57,16 +78,6 @@ namespace MeetAPaw.Data.Migrations
                 table: "Shelters",
                 keyColumn: "Id",
                 keyValue: 5);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Breed",
-                table: "Pets",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(50)",
-                oldMaxLength: 50,
-                oldNullable: true);
         }
     }
 }

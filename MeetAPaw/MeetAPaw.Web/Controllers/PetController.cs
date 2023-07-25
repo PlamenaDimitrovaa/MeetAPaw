@@ -12,16 +12,13 @@ namespace MeetAPaw.Web.Controllers
     {
         private readonly IPetService service;
         private readonly IPetTypeService petTypeService;
-        private readonly IOwnerService ownerService;
 
         public PetController(
             IPetService service,
-            IPetTypeService petTypeService,
-            IOwnerService ownerService)
+            IPetTypeService petTypeService)
         {
             this.service = service;
             this.petTypeService = petTypeService;
-            this.ownerService = ownerService;
         }
 
         [AllowAnonymous]
@@ -54,15 +51,6 @@ namespace MeetAPaw.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            bool isOwner = await this.ownerService.OwnerExistsByUserIdAsync(this.User.GetId()!);
-           
-            if (!isOwner)
-            {
-                this.TempData[ErrorMessage] = "You must become an owner in order to add new pets!";
-
-                return this.RedirectToAction("Adopt", "Owner"); //!!!!
-           
-            }
 
             AddPetViewModel viewModel = new AddPetViewModel()
             {
@@ -79,16 +67,6 @@ namespace MeetAPaw.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddPetViewModel model)
         {
-            bool isOwner = await this.ownerService.OwnerExistsByUserIdAsync(this.User.GetId()!);
-
-            if (!isOwner)
-            {
-                this.TempData[ErrorMessage] = "You must become an owner in order to add new pets!";
-
-                return this.RedirectToAction("Adopt", "Owner"); //!!!!
-
-            }
-
             bool petTypeExists = await this.petTypeService.ExistsByIdAsync(model.PetTypeId);
 
             if (!petTypeExists)
@@ -105,9 +83,7 @@ namespace MeetAPaw.Web.Controllers
 
             try
             {
-                string? ownerId = await this.ownerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
-
-                await this.service.AddPetAsync(model, ownerId!);
+                await this.service.AddPetAsync(model, this.User.GetId()!);
             }
             catch (Exception)
             {

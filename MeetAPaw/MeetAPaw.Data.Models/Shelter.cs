@@ -9,6 +9,7 @@ namespace MeetAPaw.Data.Models
         public Shelter()
         {
             this.PetsForAdoption = new HashSet<PetForAdoption>();
+            this.Adoptions = new HashSet<Adoption>();
         }
 
         public int Id { get; set; }
@@ -21,6 +22,8 @@ namespace MeetAPaw.Data.Models
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; } = null!;
 
-        public ICollection<PetForAdoption> PetsForAdoption { get; set; }
+        public virtual ICollection<PetForAdoption> PetsForAdoption { get; set; }
+    
+        public virtual ICollection<Adoption> Adoptions { get; set; }
     }
 }

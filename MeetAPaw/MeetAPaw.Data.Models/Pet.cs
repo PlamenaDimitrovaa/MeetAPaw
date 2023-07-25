@@ -17,7 +17,7 @@ namespace MeetAPaw.Data.Models
         public int PetTypeId { get; set; }
 
         [ForeignKey(nameof(PetTypeId))]
-        public PetType PetType { get; set; } = null!;
+        public virtual PetType PetType { get; set; } = null!;
 
         [MaxLength(BreedMaxLength)]
         public string? Breed { get; set; }
@@ -44,6 +44,6 @@ namespace MeetAPaw.Data.Models
         public Guid OwnerId { get; set; }
 
         [ForeignKey(nameof(OwnerId))]
-        public virtual Owner Owner { get; set; } = null!;
+        public virtual ApplicationUser Owner { get; set; } = null!;
     }
 }

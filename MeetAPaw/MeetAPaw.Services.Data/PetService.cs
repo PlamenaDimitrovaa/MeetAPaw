@@ -106,7 +106,7 @@ namespace MeetAPaw.Services.Data
                 DateOfBirth= p.DateOfBirth.ToString("yyyy/MM/dd"),
                 PetType= p.PetType.Name,
                 Breed = p.Breed,
-                Owner = p.Owner.User.UserName,
+                Owner = p.Owner.UserName,
                 Color = p.Color
             })
             .FirstOrDefaultAsync();

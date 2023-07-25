@@ -11,7 +11,9 @@
 </div>
 <hr />
 <form asp-action="Add" method="post" class="row g-3 bg-light p-2 text-dark bg-opacity-75">
+
     <input asp-for="@Model.OwnerId" type="hidden" />
+
     <div class="col-md-6">
         <label asp-for="@Model.Name" class="form-label">Name</label>
         <input asp-for="@Model.Name" class="form-control" id="inputName" placeholder="Johny" aria-required="true">

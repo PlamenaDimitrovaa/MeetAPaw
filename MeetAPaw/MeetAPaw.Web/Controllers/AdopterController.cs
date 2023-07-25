@@ -2,7 +2,7 @@
 
 namespace MeetAPaw.Web.Controllers
 {
-    public class OwnerController : BaseController
+    public class AdopterController : BaseController
     {
         public IActionResult Index()
         {

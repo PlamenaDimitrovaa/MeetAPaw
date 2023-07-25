@@ -33,6 +33,7 @@ namespace MeetAPaw.Services.Data
                 PetTypeId = model.PetTypeId,
                 IsAdopted = false,
                 ShelterId = model.ShelterId,
+                UserId = Guid.Parse(model.UserId)
             };
 
             await this.context.PetsForAdoption.AddAsync(pet);

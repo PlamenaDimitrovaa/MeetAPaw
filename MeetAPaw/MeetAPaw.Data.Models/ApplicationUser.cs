@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MeetAPaw.Data.Models
 {
@@ -15,6 +16,10 @@ namespace MeetAPaw.Data.Models
 
         public virtual ICollection<Pet> OwnedPets { get; set; }
 
+        [InverseProperty("User")]
+        public ICollection<PetForAdoption> PetsForAdoptionAdded { get; set; }
+
+        [InverseProperty("Adopter")]
         public virtual ICollection<PetForAdoption> PetsForAdoption { get; set; }
     }
 }

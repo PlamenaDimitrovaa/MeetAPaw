@@ -9,7 +9,7 @@ namespace MeetAPaw.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PetType> builder)
         {
-             builder.HasData(this.GeneratePetTypes());
+            builder.HasData(this.GeneratePetTypes());
         }
 
         private PetType[] GeneratePetTypes()
@@ -50,7 +50,7 @@ namespace MeetAPaw.Data.Configurations
 
             types.Add(petType);
 
-            return types.ToArray(); 
+            return types.ToArray();
         }
     }
 }
