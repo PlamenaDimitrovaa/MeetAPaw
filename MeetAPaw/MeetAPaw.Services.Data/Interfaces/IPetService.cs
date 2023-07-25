@@ -18,5 +18,9 @@ namespace MeetAPaw.Services.Data.Interfaces
         Task EditPetByIdAsync(int id, EditPetViewModel model);
 
         Task<bool> PetExistsByIdAsync(int id);
+
+        Task<PetPreDeleteDetailsViewModel> GetPetForDeleteByIdAsync(int id);
+
+        Task DeletePetByIdAsync(int id);
     }
 }

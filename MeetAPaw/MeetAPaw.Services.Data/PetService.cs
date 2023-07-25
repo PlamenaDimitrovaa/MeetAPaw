@@ -145,5 +145,29 @@ namespace MeetAPaw.Services.Data
 
             return result;
         }
+
+        public async Task<PetPreDeleteDetailsViewModel> GetPetForDeleteByIdAsync(int id)
+        {
+            Pet pet = await this.context
+                .Pets
+                .FirstAsync(h => h.Id == id);
+
+            return new PetPreDeleteDetailsViewModel
+            {
+                Name = pet.Name,
+                Address = pet.Address,
+                ImageUrl = pet.ImageUrl
+            };
+        }
+
+        public async Task DeletePetByIdAsync(int id)
+        {
+            Pet petToDelete = await this.context
+                .Pets
+                .FirstAsync(h => h.Id == id);
+
+            this.context.Pets.Remove(petToDelete);
+            await this.context.SaveChangesAsync();
+        }
     }
 }

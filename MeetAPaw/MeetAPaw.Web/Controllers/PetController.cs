@@ -148,5 +148,54 @@ namespace MeetAPaw.Web.Controllers
             return this.RedirectToAction("Profile", "Pet", new { id });
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool houseExists = await this.service
+                .PetExistsByIdAsync(id);
+
+            if (!houseExists)
+            {
+                return this.RedirectToAction("All", "Pet");
+            }
+
+            try
+            {
+                PetPreDeleteDetailsViewModel viewModel =
+                    await this.service.GetPetForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, PetPreDeleteDetailsViewModel model)
+        {
+            bool petExists = await this.service
+                .PetExistsByIdAsync(id);
+
+            if (!petExists)
+            {
+                return this.RedirectToAction("All", "Pet");
+            }
+
+            try
+            {
+                await this.service.DeletePetByIdAsync(id);
+
+                return this.RedirectToAction("All", "Pet");
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }
