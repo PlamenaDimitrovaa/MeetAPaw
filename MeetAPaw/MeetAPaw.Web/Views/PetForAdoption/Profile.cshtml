@@ -48,9 +48,17 @@
                         </ul>
                     </div>
                 </div>
-                <a asp-controller="Adopt" asp-action="Adopt" asp-route-id="@Model.Id" class="btn btn-warning">Adopt me!</a>
 
-                @if(Model.PetType.ToLower() == "dog")
+                @if (!Model.IsAdopted)
+                {
+                     <a asp-controller="Adopt" asp-action="Adoption" asp-route-id="@Model.Id" class="btn btn-warning">Adopt me!</a>
+                }
+                else
+                {
+                    <p>This pet has already been adopted.</p>
+                }
+
+                @if (Model.PetType.ToLower() == "dog")
                 {
                     <a asp-controller="Adopt" asp-action="AdoptDog" class="btn btn-primary">All Dogs For Adoption</a>
                 }
@@ -72,10 +80,10 @@
 
                 <a asp-controller="Adopt" asp-action="Adopt" class="btn btn-primary">All Pets For Adoption</a>
 
-            @*    @if (User.Identity.Name == Model.User)
+                @*    @if (User.Identity.Name == Model.User)
                 {
-                    <a asp-controller="PetForAdoption" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                    <a asp-controller="PetForAdoption" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                <a asp-controller="PetForAdoption" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                <a asp-controller="PetForAdoption" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
                 }*@
 
             </div>

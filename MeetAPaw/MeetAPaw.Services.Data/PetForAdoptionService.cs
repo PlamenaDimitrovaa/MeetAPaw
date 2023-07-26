@@ -57,6 +57,7 @@ namespace MeetAPaw.Services.Data
                      Breed = p.Breed,
                      Color = p.Color,
                      Shelter = p.Shelter.Name,
+                     IsAdopted = p.IsAdopted,
                  })
              .FirstOrDefaultAsync();
         }

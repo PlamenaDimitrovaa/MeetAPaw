@@ -1,15 +1,22 @@
 ﻿
+using MeetAPaw.Data.Models;
 using MeetAPaw.Web.ViewModels.Adopt;
 
 namespace MeetAPaw.Services.Data.Interfaces
 {
     public interface IAdoptService
     {
-        public Task<IEnumerable<AdoptPetViewModel>> GetPetsForAdoptionAsync();
-        public Task<IEnumerable<AdoptPetViewModel>> GetDogsForAdoptionAsync();
-        public Task<IEnumerable<AdoptPetViewModel>> GetCatsForAdoptionAsync();
-        public Task<IEnumerable<AdoptPetViewModel>> GetBirdsForAdoptionAsync();
-        public Task<IEnumerable<AdoptPetViewModel>> GetRabbitsForAdoptionAsync();
+        Task<IEnumerable<AdoptPetViewModel>> GetPetsForAdoptionAsync();
+        Task<IEnumerable<AdoptPetViewModel>> GetDogsForAdoptionAsync();
+        Task<IEnumerable<AdoptPetViewModel>> GetCatsForAdoptionAsync();
+        Task<IEnumerable<AdoptPetViewModel>> GetBirdsForAdoptionAsync();
+        Task<IEnumerable<AdoptPetViewModel>> GetRabbitsForAdoptionAsync();
+        Task<PetForAdoption?> GetPetForAdoptionAsync(int petId);
 
+        Task UpdatePetForAdoptionAsync(PetForAdoption petForAdoption, string adopterId);
+
+        Task AddAdoption(string adopterId, PetForAdoption petForAdoption);
+
+        Task<AdoptPetViewModel?> GetPetForAdoptionByIdAsync(int id);
     }
 }

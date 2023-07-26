@@ -26,5 +26,7 @@ namespace MeetAPaw.Web.ViewModels.PetForAdoption
         public string Gender { get; set; } = null!;
 
         public string User { get; set; } = null!;
+
+        public bool IsAdopted { get; set; }
     }
 }

@@ -21,6 +21,14 @@ namespace MeetAPaw.Web.ViewModels.Adopt
 
         public string PetType { get; set; } = null!;
 
+        public int PetTypeId { get; set; }
+
         public string? Breed { get; set; }
+
+        public string Shelter { get; set; }
+
+        public bool IsAdopted { get; set; }
+
+        public string AdopterId { get; set; }
     }
 }
