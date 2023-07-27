@@ -28,6 +28,9 @@ namespace MeetAPaw.Data.Models
         [Required]
         public string ImageUrl { get; set; } = null!;
 
+        [Display(Name = "Date Of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         public string? Address { get; set; }

@@ -89,5 +89,117 @@ namespace MeetAPaw.Web.Controllers
 
             return RedirectToAction("Adopt", "Adopt");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                EditPetForAdoptionViewModel viewModel = await this.service.GetPetForAdoptionForEditByIdAsync(id);
+
+                viewModel.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+                viewModel.Shelters = await this.shelterService.AllSheltersAsync();
+
+                viewModel.UserId = GetUserId();
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditPetForAdoptionViewModel model)
+        {
+            bool petExists = await this.service
+                .PetForAdoptionExistsByIdAsync(id);
+
+            if (!petExists)
+            {
+                return this.RedirectToAction("Adopt", "Adopt");
+            }
+
+            bool sheltersExists = await this.shelterService.ShelterExistsByIdAsync(model.ShelterId);
+
+            if (!sheltersExists)
+            {
+                ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+                model.Shelters = await this.shelterService.AllSheltersAsync();
+
+                return this.View(model);
+            }
+
+            try
+            {
+                await this.service.EditPetForAdoptionByIdAsync(id, model);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty,
+                    "Unexpected error occurred while trying to update the pet. Please try again later or contact administrator!");
+                model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("Profile", "PetForAdoption", new { id });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool houseExists = await this.service
+                .PetForAdoptionExistsByIdAsync(id);
+
+            if (!houseExists)
+            {
+                return this.RedirectToAction("Adopt", "Adopt");
+            }
+
+            try
+            {
+                PetForAdoptionPreDeleteDetailsViewModel viewModel =
+                    await this.service.GetPetForAdoptionForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, PetForAdoptionPreDeleteDetailsViewModel model)
+        {
+            bool petExists = await this.service
+                .PetForAdoptionExistsByIdAsync(id);
+
+            if (!petExists)
+            {
+                return this.RedirectToAction("Adopt", "Adopt");
+            }
+
+            try
+            {
+                await this.service.DeletePetForAdoptionByIdAsync(id);
+
+                return this.RedirectToAction("Adopt", "Adopt");
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }

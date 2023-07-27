@@ -58,8 +58,85 @@ namespace MeetAPaw.Services.Data
                      Color = p.Color,
                      Shelter = p.Shelter.Name,
                      IsAdopted = p.IsAdopted,
+                     User = p.User.UserName
                  })
              .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditPetForAdoptionViewModel> GetPetForAdoptionForEditByIdAsync(int id)
+        {
+            PetForAdoption pet = await this.context
+                .PetsForAdoption
+                .Include(p => p.PetType)
+                .FirstAsync(p => p.Id == id);
+
+            return new EditPetForAdoptionViewModel()
+            {
+                Id = pet.Id,
+                Name = pet.Name,
+                Description = pet.Description,
+                ImageUrl = pet.ImageUrl,
+                Gender = pet.Gender.ToString(),
+                Breed = pet.Breed,
+                Color = pet.Color,
+                DateOfBirth = pet.DateOfBirth.ToString(),
+                UserId = pet.UserId.ToString(),
+                PetTypeId = pet.PetTypeId,
+                IsAdopted = pet.IsAdopted,
+                ShelterId = pet.ShelterId,
+            };
+        }
+
+        public async Task EditPetForAdoptionByIdAsync(int id, EditPetForAdoptionViewModel model)
+        {
+            PetForAdoption pet = await this.context
+                .PetsForAdoption
+                .FirstAsync(h => h.Id == id);
+
+            pet.Name = model.Name;
+            pet.Description = model.Description;
+            pet.ImageUrl = model.ImageUrl;
+            pet.Breed = model.Breed;
+            pet.Color = model.Color;
+            pet.DateOfBirth = DateTime.Parse(model.DateOfBirth);
+            pet.UserId = Guid.Parse(model.UserId);
+            pet.Gender = Enum.Parse<PetGender>(model.Gender);
+            pet.PetTypeId = model.PetTypeId;
+            pet.IsAdopted = model.IsAdopted;
+            pet.ShelterId = model.ShelterId;
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<bool> PetForAdoptionExistsByIdAsync(int id)
+        {
+            bool result = await this.context
+                .PetsForAdoption.AnyAsync(h => h.Id == id);
+
+            return result;
+        }
+
+        public async Task<PetForAdoptionPreDeleteDetailsViewModel> GetPetForAdoptionForDeleteByIdAsync(int id)
+        {
+            PetForAdoption pet = await this.context
+                .PetsForAdoption
+                .FirstAsync(h => h.Id == id);
+
+            return new PetForAdoptionPreDeleteDetailsViewModel
+            {
+                Name = pet.Name,
+                ImageUrl = pet.ImageUrl
+            };
+        }
+
+        public async Task DeletePetForAdoptionByIdAsync(int id)
+        {
+            PetForAdoption petToDelete = await this.context
+                .PetsForAdoption
+                .FirstAsync(h => h.Id == id);
+
+            this.context.PetsForAdoption.Remove(petToDelete);
+            await this.context.SaveChangesAsync();
         }
     }
 }

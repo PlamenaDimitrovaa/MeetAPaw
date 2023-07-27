@@ -127,9 +127,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
-                this.TempData[ErrorMessage] = "House with the provided id does not exist!";
-
-                return this.RedirectToAction("All", "House");
+                return this.RedirectToAction("All", "Pet");
             }
 
             try
