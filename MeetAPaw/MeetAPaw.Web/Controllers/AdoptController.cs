@@ -71,6 +71,12 @@ namespace MeetAPaw.Web.Controllers
                 return NotFound();
             }
 
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to adopt a pet!");
+                return BadRequest();
+            }
+
             var adopter = this.User.GetId();
 
             if (adopter == null)
@@ -78,12 +84,16 @@ namespace MeetAPaw.Web.Controllers
                 return Unauthorized(); 
             }
 
-           
-            await this.service.UpdatePetForAdoptionAsync(petForAdoption, adopter);
-
-            await this.service.AddAdoption(adopter, petForAdoption);
-
-            return RedirectToAction("Index", "Home"); 
+            try
+            {
+                await this.service.UpdatePetForAdoptionAsync(petForAdoption, adopter);
+                await this.service.AddAdoption(adopter, petForAdoption);
+                return RedirectToAction("Index", "Home"); 
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
         }
     }
 }
