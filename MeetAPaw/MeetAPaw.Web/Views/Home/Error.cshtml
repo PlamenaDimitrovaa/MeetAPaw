@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .error-image {
+            max-width: 400px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/399/399274.png?w=826&t=st=1690828907~exp=1690829507~hmac=a1ae5cd496c84ab014be79cadd8113d12a20869408375a4604a90077e88a8479" alt="Error" class="img-fluid error-image">
+            <h1 class="display-4">Oops, something went wrong!</h1>
+            @if (Model != null && !string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <p class="lead">@Model.ErrorMessage</p>
+            }
+            else
+            {
+                <p class="lead">We apologize for the inconvenience. Please try again later.</p>
+            }
+        </div>
+    </div>
+</body>
+</html>
