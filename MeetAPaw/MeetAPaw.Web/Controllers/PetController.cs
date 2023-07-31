@@ -90,6 +90,7 @@ namespace MeetAPaw.Web.Controllers
                 return this.View(model);
             }
 
+            TempData[SuccessMessage] = "You have added a new pet successfully!";
             return RedirectToAction("All", "Pet");
         }
 
@@ -133,6 +134,7 @@ namespace MeetAPaw.Web.Controllers
             try
             {
                 await this.service.EditPetByIdAsync(id, model);
+                TempData[SuccessMessage] = "You have edited the pet successfully!";
             }
             catch (Exception)
             {
@@ -185,7 +187,7 @@ namespace MeetAPaw.Web.Controllers
             try
             {
                 await this.service.DeletePetByIdAsync(id);
-
+                TempData[ErrorMessage] = "You have deleted the pet successfully!";
                 return this.RedirectToAction("All", "Pet");
             }
             catch (Exception)

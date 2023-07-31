@@ -5,6 +5,7 @@ using MeetAPaw.Web.ViewModels.Adopt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static MeetAPaw.Common.NotificationMessagesConstants;
 
 namespace MeetAPaw.Web.Controllers
 {
@@ -20,8 +21,17 @@ namespace MeetAPaw.Web.Controllers
 
         public async Task<IActionResult> Adopt()
         {
-            var model = await this.service.GetPetsForAdoptionAsync();
-            return View(model);
+            try
+            {
+                var model = await this.service.GetPetsForAdoptionAsync();
+                return View(model);
+
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "You have go log in to adopt a pet!";
+                throw;
+            }
         }
 
         public async Task<IActionResult> AdoptDog()
@@ -55,9 +65,11 @@ namespace MeetAPaw.Web.Controllers
 
             if (model == null)
             {
+                TempData[ErrorMessage] = "You cannot adopt this pet!";
                 return BadRequest();
             }
 
+            TempData[SuccessMessage] = "You have successfully adopted a pet!";
             return View(model);
         }
 

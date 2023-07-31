@@ -1,8 +1,7 @@
 ﻿using MeetAPaw.Services.Data.Interfaces;
-using MeetAPaw.Web.Infrastructure.Extensions;
-using MeetAPaw.Web.ViewModels.Pet;
 using MeetAPaw.Web.ViewModels.PetForAdoption;
 using Microsoft.AspNetCore.Mvc;
+using static MeetAPaw.Common.NotificationMessagesConstants;
 
 namespace MeetAPaw.Web.Controllers
 {
@@ -78,6 +77,7 @@ namespace MeetAPaw.Web.Controllers
             try
             {
                 await this.service.AddPetForAdoptionAsync(model);
+                TempData[SuccessMessage] = "You have successfully added a pet for adoption!";
             }
             catch (Exception)
             {
@@ -139,6 +139,7 @@ namespace MeetAPaw.Web.Controllers
             try
             {
                 await this.service.EditPetForAdoptionByIdAsync(id, model);
+                TempData[SuccessMessage] = "You have successfully edited the pet for adoption!";
             }
             catch (Exception)
             {
@@ -191,7 +192,7 @@ namespace MeetAPaw.Web.Controllers
             try
             {
                 await this.service.DeletePetForAdoptionByIdAsync(id);
-
+                TempData[SuccessMessage] = "You have successfully deleted the pet for adoption!";
                 return this.RedirectToAction("Adopt", "Adopt");
             }
             catch (Exception)
@@ -199,7 +200,5 @@ namespace MeetAPaw.Web.Controllers
                 return BadRequest();
             }
         }
-
-
     }
 }

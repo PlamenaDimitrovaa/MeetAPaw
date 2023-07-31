@@ -1,6 +1,6 @@
 ﻿@using static MeetAPaw.Common.NotificationMessagesConstants;
 
-@if(TempData.ContainsKey(ErrorMessage))
+@if (TempData.ContainsKey(ErrorMessage))
 {
     <script>toastr.error('@TempData[ErrorMessage]');</script>
 }

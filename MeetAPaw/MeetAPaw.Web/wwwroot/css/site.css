@@ -25,3 +25,13 @@ body {
 .imageAboutPage {
     width: 100%;
 }
+
+.toast {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+
+.toast-info {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
