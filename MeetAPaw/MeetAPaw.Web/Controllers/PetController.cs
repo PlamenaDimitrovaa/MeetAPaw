@@ -75,7 +75,7 @@ namespace MeetAPaw.Web.Controllers
             if (!ModelState.IsValid)
             {
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
-
+                TempData[ErrorMessage] = "You cannot add a new pet!";
                 return View(model);
             }
 
@@ -119,7 +119,7 @@ namespace MeetAPaw.Web.Controllers
             if (!this.ModelState.IsValid)
             {
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
-
+                TempData[ErrorMessage] = "You cannot edit this pet!";
                 return this.View(model);
             }
 
@@ -128,13 +128,13 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
+                TempData[ErrorMessage] = "This pet does not exists!";
                 return this.RedirectToAction("All", "Pet");
             }
 
             try
             {
                 await this.service.EditPetByIdAsync(id, model);
-                TempData[SuccessMessage] = "You have edited the pet successfully!";
             }
             catch (Exception)
             {
@@ -145,6 +145,7 @@ namespace MeetAPaw.Web.Controllers
                 return this.View(model);
             }
 
+            TempData[SuccessMessage] = "You have edited the pet successfully!";
             return this.RedirectToAction("Profile", "Pet", new { id });
         }
 
@@ -181,13 +182,14 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
+                TempData[ErrorMessage] = "You cannot delete this pet!";
                 return this.RedirectToAction("All", "Pet");
             }
 
             try
             {
                 await this.service.DeletePetByIdAsync(id);
-                TempData[ErrorMessage] = "You have deleted the pet successfully!";
+                TempData[SuccessMessage] = "You have deleted the pet successfully!";
                 return this.RedirectToAction("All", "Pet");
             }
             catch (Exception)

@@ -65,11 +65,9 @@ namespace MeetAPaw.Web.Controllers
 
             if (model == null)
             {
-                TempData[ErrorMessage] = "You cannot adopt this pet!";
                 return BadRequest();
             }
 
-            TempData[SuccessMessage] = "You have successfully adopted a pet!";
             return View(model);
         }
 
@@ -80,12 +78,14 @@ namespace MeetAPaw.Web.Controllers
 
             if (petForAdoption == null)
             {
+                TempData[ErrorMessage] = "You cannot adopt this pet!";
                 return NotFound();
             }
 
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to adopt a pet!");
+                TempData[ErrorMessage] = "You cannot adopt this pet!";
                 return BadRequest();
             }
 
@@ -93,6 +93,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (adopter == null)
             {
+                TempData[ErrorMessage] = "You cannot adopt this pet!";
                 return Unauthorized(); 
             }
 
@@ -100,6 +101,7 @@ namespace MeetAPaw.Web.Controllers
             {
                 await this.service.UpdatePetForAdoptionAsync(petForAdoption, adopter);
                 await this.service.AddAdoption(adopter, petForAdoption);
+                TempData[SuccessMessage] = "You have successfully adopted a pet!";
                 return RedirectToAction("Index", "Home"); 
             }
             catch (Exception)

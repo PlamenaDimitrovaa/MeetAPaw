@@ -70,23 +70,24 @@ namespace MeetAPaw.Web.Controllers
             {
                 model.Shelters = await this.shelterService.AllSheltersAsync();
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
-
+                TempData[ErrorMessage] = "You cannot add pet for adoption!";
                 return View(model);
             }
 
             try
             {
                 await this.service.AddPetForAdoptionAsync(model);
-                TempData[SuccessMessage] = "You have successfully added a pet for adoption!";
             }
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new pet for adoptionn! Please try again later or contact administrator.");
                 model.Shelters = await this.shelterService.AllSheltersAsync();
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+                TempData[ErrorMessage] = "You cannot add pet for adoption!";
                 return this.View(model);
             }
 
+            TempData[SuccessMessage] = "You have successfully added a pet for adoption!";
             return RedirectToAction("Adopt", "Adopt");
         }
 
@@ -118,6 +119,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
+                TempData[ErrorMessage] = "You cannot edit this pet for adoption! It does not exists!";
                 return this.RedirectToAction("Adopt", "Adopt");
             }
 
@@ -132,24 +134,24 @@ namespace MeetAPaw.Web.Controllers
             {
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 model.Shelters = await this.shelterService.AllSheltersAsync();
-
+                TempData[ErrorMessage] = "You cannot edit pet for adoption!";
                 return this.View(model);
             }
 
             try
             {
                 await this.service.EditPetForAdoptionByIdAsync(id, model);
-                TempData[SuccessMessage] = "You have successfully edited the pet for adoption!";
             }
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty,
                     "Unexpected error occurred while trying to update the pet. Please try again later or contact administrator!");
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
-
+                TempData[ErrorMessage] = "You cannot edit pet for adoption!";
                 return this.View(model);
             }
 
+            TempData[SuccessMessage] = "You have successfully edited the pet for adoption!";
             return this.RedirectToAction("Profile", "PetForAdoption", new { id });
         }
 

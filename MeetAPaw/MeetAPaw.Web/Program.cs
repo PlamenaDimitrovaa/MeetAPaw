@@ -49,7 +49,7 @@ namespace MeetAPaw.Web
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
-                app.UseDeveloperExceptionPage(); //Don't forgive to remove it !!!!
+                app.UseDeveloperExceptionPage();
             }
             else
             {
