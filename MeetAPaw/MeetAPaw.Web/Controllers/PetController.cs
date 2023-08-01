@@ -79,6 +79,13 @@ namespace MeetAPaw.Web.Controllers
                 return View(model);
             }
 
+            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
+
+            if (dateOfBirth >= DateTime.UtcNow)
+            {
+                ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
+            }
+
             try
             {
                 await this.service.AddPetAsync(model, this.User.GetId()!);
@@ -130,6 +137,13 @@ namespace MeetAPaw.Web.Controllers
             {
                 TempData[ErrorMessage] = "This pet does not exists!";
                 return this.RedirectToAction("All", "Pet");
+            }
+
+            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
+
+            if (dateOfBirth >= DateTime.UtcNow)
+            {
+                ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
             }
 
             try

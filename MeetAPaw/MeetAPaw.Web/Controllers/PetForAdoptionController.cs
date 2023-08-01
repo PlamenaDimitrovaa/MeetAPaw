@@ -66,6 +66,13 @@ namespace MeetAPaw.Web.Controllers
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
             }
 
+            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
+
+            if (dateOfBirth >= DateTime.UtcNow)
+            {
+                ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
+            }
+
             if (!ModelState.IsValid)
             {
                 model.Shelters = await this.shelterService.AllSheltersAsync();
@@ -128,6 +135,13 @@ namespace MeetAPaw.Web.Controllers
             if (!sheltersExists)
             {
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
+            }
+
+            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
+
+            if (dateOfBirth >= DateTime.UtcNow)
+            {
+                ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
             }
 
             if (!this.ModelState.IsValid)
