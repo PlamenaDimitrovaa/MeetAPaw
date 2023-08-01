@@ -1,6 +1,7 @@
 using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
+using MeetAPaw.Web.Infrastructure.ModelBinders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static MeetAPaw.Web.Infrastructure.Extensions.WebApplicationBuilderExtensions;
@@ -40,6 +41,7 @@ namespace MeetAPaw.Web
                 .AddMvcOptions(options =>
                 {
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                    options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
                 });
 
            builder.Services.AddApplicationServices(typeof(IPetService));
