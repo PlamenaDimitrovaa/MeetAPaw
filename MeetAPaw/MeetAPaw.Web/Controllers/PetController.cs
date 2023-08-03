@@ -1,4 +1,5 @@
 ﻿using MeetAPaw.Services.Data.Interfaces;
+using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.Infrastructure.Extensions;
 using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.AspNetCore.Authorization;
@@ -22,10 +23,16 @@ namespace MeetAPaw.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllPetsQueryModel queryModel)
         {
-            var model = await this.service.GetAllPetsAsync();
-            return View(model);
+            AllPetsFilteredAndPagesServiceModel serviceModel = 
+                await this.service.AllAsync(queryModel);
+
+            queryModel.Pets = serviceModel.Pets;
+            queryModel.TotalPets = serviceModel.TotalPetsCount;
+            queryModel.PetsTypes = await this.petTypeService.AllPetsTypesNamesAsync();
+
+            return View(queryModel);
         }
 
         public async Task<IActionResult> Profile(int id)

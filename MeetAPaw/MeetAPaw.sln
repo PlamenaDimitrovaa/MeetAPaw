@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetAPaw.Data.Models", "Mee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetAPaw.Web.ViewModels", "MeetAPaw.Web.ViewModels\MeetAPaw.Web.ViewModels.csproj", "{9A8B5DF2-47D0-4BF9-B449-A48B907DAE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetAPaw.Web.Infrastructure", "MeetAPaw.Web.Infrastructure\MeetAPaw.Web.Infrastructure.csproj", "{CC6E9CB2-8E3B-41A6-9069-3EB94BD7FF4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetAPaw.Web.Infrastructure", "MeetAPaw.Web.Infrastructure\MeetAPaw.Web.Infrastructure.csproj", "{CC6E9CB2-8E3B-41A6-9069-3EB94BD7FF4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{305BB9DE-C12D-404F-AADF-90DE2E0FD821}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetAPaw.Services.Data", "MeetAPaw.Services.Data\MeetAPaw.Services.Data.csproj", "{A8630106-6E1F-4A05-A8D3-F62ED6D782F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetAPaw.Services.Data", "MeetAPaw.Services.Data\MeetAPaw.Services.Data.csproj", "{A8630106-6E1F-4A05-A8D3-F62ED6D782F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetAPaw.Services.Data.Models", "MeetAPaw.Services.Data.Models\MeetAPaw.Services.Data.Models.csproj", "{2D336F66-51AD-4DC3-9737-6E6B4AA3A363}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{A8630106-6E1F-4A05-A8D3-F62ED6D782F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8630106-6E1F-4A05-A8D3-F62ED6D782F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8630106-6E1F-4A05-A8D3-F62ED6D782F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D336F66-51AD-4DC3-9737-6E6B4AA3A363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D336F66-51AD-4DC3-9737-6E6B4AA3A363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D336F66-51AD-4DC3-9737-6E6B4AA3A363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D336F66-51AD-4DC3-9737-6E6B4AA3A363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{9A8B5DF2-47D0-4BF9-B449-A48B907DAE12} = {5F4C17D8-B135-472C-8DCE-317329AFB196}
 		{CC6E9CB2-8E3B-41A6-9069-3EB94BD7FF4E} = {5F4C17D8-B135-472C-8DCE-317329AFB196}
 		{A8630106-6E1F-4A05-A8D3-F62ED6D782F4} = {305BB9DE-C12D-404F-AADF-90DE2E0FD821}
+		{2D336F66-51AD-4DC3-9737-6E6B4AA3A363} = {305BB9DE-C12D-404F-AADF-90DE2E0FD821}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF8FE84B-C962-482D-ACA3-F2CCFF1393CC}

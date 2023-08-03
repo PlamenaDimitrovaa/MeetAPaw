@@ -14,6 +14,17 @@ namespace MeetAPaw.Services.Data
         {
             this.dbContext = dbContext;
         }
+
+        public async Task<IEnumerable<string>> AllPetsTypesNamesAsync()
+        {
+            IEnumerable<string> allNames = await this.dbContext
+                .PetsTypes
+                .Select(pt => pt.Name)
+                .ToListAsync();
+
+            return allNames;
+        }
+
         public async Task<IEnumerable<PetTypeViewModel>> AllPetTypesAsync()
         {
             IEnumerable<PetTypeViewModel> allPetTypes =

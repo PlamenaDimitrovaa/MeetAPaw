@@ -8,5 +8,7 @@ namespace MeetAPaw.Services.Data.Interfaces
         Task<IEnumerable<PetTypeViewModel>> AllPetTypesAsync();
     
         Task<bool> ExistsByIdAsync(int id);
+
+        Task<IEnumerable<string>> AllPetsTypesNamesAsync();
     }
 }

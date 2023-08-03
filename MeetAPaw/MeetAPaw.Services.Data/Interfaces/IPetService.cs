@@ -1,4 +1,5 @@
 ﻿
+using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.ViewModels.Pet;
 
 namespace MeetAPaw.Services.Data.Interfaces
@@ -22,5 +23,7 @@ namespace MeetAPaw.Services.Data.Interfaces
         Task<PetPreDeleteDetailsViewModel> GetPetForDeleteByIdAsync(int id);
 
         Task DeletePetByIdAsync(int id);
+
+        Task<AllPetsFilteredAndPagesServiceModel> AllAsync(AllPetsQueryModel queryModel);
     }
 }

@@ -3,6 +3,7 @@ using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Data.Models.Enums;
 using MeetAPaw.Services.Data.Interfaces;
+using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.EntityFrameworkCore;
 
@@ -168,6 +169,54 @@ namespace MeetAPaw.Services.Data
 
             this.context.Pets.Remove(petToDelete);
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<AllPetsFilteredAndPagesServiceModel> AllAsync(AllPetsQueryModel queryModel)
+        {
+            IQueryable<Pet> petsQuery = this.context
+                .Pets
+                .AsQueryable();
+
+
+            if (queryModel.PetType != "All")
+            {
+                petsQuery = petsQuery
+                    .Where(p => p.PetType.Name == queryModel.PetType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                petsQuery = petsQuery
+                    .Where(p => EF.Functions.Like(p.Name, wildCard) ||
+                                EF.Functions.Like(p.Address, wildCard));
+            }
+
+            var allPets = await petsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.PetsPerPage)
+                .Take(queryModel.PetsPerPage)
+                .Select(p => new PetViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Address = p.Address,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Gender = p.Gender.ToString(),
+                    DateOfBirth = p.DateOfBirth.ToString(),
+                    PetType = p.PetType.Name,
+                    Breed = p.Breed
+                })
+                .ToListAsync();
+
+            int totalPets = petsQuery.Count();
+
+            return new AllPetsFilteredAndPagesServiceModel()
+            {
+                TotalPetsCount = totalPets,
+                Pets = allPets
+            };
         }
     }
 }

@@ -10,6 +10,7 @@
     <ProjectReference Include="..\MeetAPaw.Common\MeetAPaw.Common.csproj" />
     <ProjectReference Include="..\MeetAPaw.Data.Models\MeetAPaw.Data.Models.csproj" />
     <ProjectReference Include="..\MeetAPaw.Data\MeetAPaw.Data.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Services.Data.Models\MeetAPaw.Services.Data.Models.csproj" />
     <ProjectReference Include="..\MeetAPaw.Web.ViewModels\MeetAPaw.Web.ViewModels.csproj" />
   </ItemGroup>
 
