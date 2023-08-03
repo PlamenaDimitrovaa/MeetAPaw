@@ -178,7 +178,7 @@ namespace MeetAPaw.Services.Data
                 .AsQueryable();
 
 
-            if (queryModel.PetType != "All")
+            if (queryModel.PetType != "All" && queryModel.PetType != null)
             {
                 petsQuery = petsQuery
                     .Where(p => p.PetType.Name == queryModel.PetType);

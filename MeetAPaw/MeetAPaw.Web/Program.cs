@@ -44,6 +44,9 @@ namespace MeetAPaw.Web
                     options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
                 });
 
+            builder.Services.AddMvc(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
            builder.Services.AddApplicationServices(typeof(IPetService));
 
             WebApplication app = builder.Build();

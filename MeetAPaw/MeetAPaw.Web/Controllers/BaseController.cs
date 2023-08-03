@@ -5,6 +5,7 @@ using System.Security.Claims;
 namespace MeetAPaw.Web.Controllers
 {
     [Authorize]
+    [AutoValidateAntiforgeryToken]
     public class BaseController : Controller
     {
         protected string GetUserId()
