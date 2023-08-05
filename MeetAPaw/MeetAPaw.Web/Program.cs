@@ -49,6 +49,14 @@ namespace MeetAPaw.Web
 
            builder.Services.AddApplicationServices(typeof(IPetService));
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Allow", builder =>
+                {
+                    builder.WithMethods(HttpMethod.Get.Method, HttpMethod.Post.Method);
+                });
+            });
+
             WebApplication app = builder.Build();
 
             if (app.Environment.IsDevelopment())
