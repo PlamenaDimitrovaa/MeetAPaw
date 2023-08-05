@@ -33,6 +33,14 @@ namespace MeetAPaw.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -69,6 +77,8 @@ namespace MeetAPaw.Web.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser()
                 {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName, 
                     UserName = Input.Email,
                     Email = Input.Email,
                 };

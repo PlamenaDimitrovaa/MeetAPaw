@@ -1,6 +1,9 @@
 ﻿
 using MeetAPaw.Data.Models;
+using MeetAPaw.Services.Data.Models.AdoptPet;
+using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.ViewModels.Adopt;
+using MeetAPaw.Web.ViewModels.Pet;
 
 namespace MeetAPaw.Services.Data.Interfaces
 {
@@ -17,6 +20,7 @@ namespace MeetAPaw.Services.Data.Interfaces
 
         Task AddAdoption(string adopterId, PetForAdoption petForAdoption);
 
+        Task<AllPetsForAdoptionFilteredAndPagesServiceModel> AllAsync(AllPetsForAdoptionQueryModel queryModel);
         Task<AdoptPetViewModel?> GetPetForAdoptionByIdAsync(int id);
     }
 }

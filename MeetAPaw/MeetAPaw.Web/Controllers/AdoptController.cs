@@ -1,6 +1,10 @@
 ﻿using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
+using MeetAPaw.Services.Data.Models.AdoptPet;
+using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.Infrastructure.Extensions;
+using MeetAPaw.Web.ViewModels.Adopt;
+using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static MeetAPaw.Common.NotificationMessagesConstants;
@@ -11,26 +15,41 @@ namespace MeetAPaw.Web.Controllers
     public class AdoptController : BaseController
     {
         private readonly IAdoptService service;
+        private readonly IPetTypeService petTypeService;
 
-        public AdoptController(IAdoptService service)
+        public AdoptController(IAdoptService service,
+            IPetTypeService petTypeService)
         {
             this.service = service;
+            this.petTypeService = petTypeService;
         }
 
-        public async Task<IActionResult> Adopt()
+        public async Task<IActionResult> Adopt([FromQuery] AllPetsForAdoptionQueryModel queryModel)
         {
-            try
-            {
-                var model = await this.service.GetPetsForAdoptionAsync();
-                return View(model);
+            AllPetsForAdoptionFilteredAndPagesServiceModel serviceModel =
+                await this.service.AllAsync(queryModel);
 
-            }
-            catch (Exception)
-            {
-                TempData[ErrorMessage] = "You have go log in to adopt a pet!";
-                throw;
-            }
+            queryModel.Pets = serviceModel.Pets;
+            queryModel.TotalPets = serviceModel.TotalPetsCount;
+            queryModel.PetsTypes = await this.petTypeService.AllPetsTypesNamesAsync();
+
+            return View(queryModel);
         }
+
+        //public async Task<IActionResult> Adopt()
+        //{
+        //    try
+        //    {
+        //        var model = await this.service.GetPetsForAdoptionAsync();
+        //        return View(model);
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        TempData[ErrorMessage] = "You have go log in to adopt a pet!";
+        //        throw;
+        //    }
+        //}
 
         public async Task<IActionResult> AdoptDog()
         {

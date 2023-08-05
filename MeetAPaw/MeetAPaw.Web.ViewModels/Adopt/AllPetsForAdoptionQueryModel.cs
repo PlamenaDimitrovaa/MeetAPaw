@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using static MeetAPaw.Common.GeneralApplicationConstants;
 
-namespace MeetAPaw.Web.ViewModels.Pet
+namespace MeetAPaw.Web.ViewModels.Adopt
 {
-    public class AllPetsQueryModel
+    public class AllPetsForAdoptionQueryModel
     {
-        public AllPetsQueryModel()
+        public AllPetsForAdoptionQueryModel()
         {
             this.PetsTypes = new HashSet<string>();
-            this.Pets = new HashSet<PetViewModel>();
+            this.Pets = new HashSet<AdoptPetViewModel>();
             this.CurrentPage = DefaultPage;
             this.PetsPerPage = _PetsPerPage;
         }
@@ -20,7 +20,7 @@ namespace MeetAPaw.Web.ViewModels.Pet
         [Display(Name = "Search")]
         public string? SearchString { get; set; }
 
-        public int CurrentPage { get; set; } 
+        public int CurrentPage { get; set; }
 
         [Display(Name = "Pets per page")]
         public int PetsPerPage { get; set; }
@@ -29,6 +29,6 @@ namespace MeetAPaw.Web.ViewModels.Pet
 
         public IEnumerable<string> PetsTypes { get; set; }
 
-        public IEnumerable<PetViewModel> Pets { get; set; }
+        public IEnumerable<AdoptPetViewModel> Pets { get; set; }
     }
 }

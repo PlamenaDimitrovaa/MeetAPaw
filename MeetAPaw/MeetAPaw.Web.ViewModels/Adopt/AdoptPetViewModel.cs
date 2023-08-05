@@ -25,7 +25,7 @@ namespace MeetAPaw.Web.ViewModels.Adopt
 
         public string? Breed { get; set; }
 
-        public string Shelter { get; set; }
+        public string Shelter { get; set; } = null!;
 
         public bool IsAdopted { get; set; }
 
