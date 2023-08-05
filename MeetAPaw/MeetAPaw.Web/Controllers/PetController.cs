@@ -4,6 +4,7 @@ using MeetAPaw.Web.Infrastructure.Extensions;
 using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using static MeetAPaw.Common.NotificationMessagesConstants;
 
 namespace MeetAPaw.Web.Controllers
@@ -79,18 +80,25 @@ namespace MeetAPaw.Web.Controllers
                 ModelState.AddModelError(nameof(model.PetTypeId), "Selected pet type does not exist!");
             }
 
+            if (this.User.GetId() != model.OwnerId)
+            {
+                return Unauthorized();
+            }
+
+            string date = WebUtility.HtmlEncode(model.DateOfBirth.ToString());
+            
+            DateTime dateOfBirth = DateTime.Parse(date);
+
+            if (dateOfBirth >= DateTime.UtcNow)
+            {
+                ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
+            }
+
             if (!ModelState.IsValid)
             {
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 TempData[ErrorMessage] = "You cannot add a new pet!";
                 return View(model);
-            }
-
-            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
-
-            if (dateOfBirth >= DateTime.UtcNow)
-            {
-                ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
             }
 
             try
@@ -130,13 +138,6 @@ namespace MeetAPaw.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditPetViewModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
-                TempData[ErrorMessage] = "You cannot edit this pet!";
-                return this.View(model);
-            }
-
             bool petExists = await this.service
                 .PetExistsByIdAsync(id);
 
@@ -146,11 +147,25 @@ namespace MeetAPaw.Web.Controllers
                 return this.RedirectToAction("All", "Pet");
             }
 
-            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
+            if (this.User.GetId() != model.OwnerId)
+            {
+                return Unauthorized();
+            }
+
+            string date = WebUtility.HtmlEncode(model.DateOfBirth.ToString());
+           
+            DateTime dateOfBirth = DateTime.Parse(date);
 
             if (dateOfBirth >= DateTime.UtcNow)
             {
                 ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
+                TempData[ErrorMessage] = "You cannot edit this pet!";
+                return this.View(model);
             }
 
             try

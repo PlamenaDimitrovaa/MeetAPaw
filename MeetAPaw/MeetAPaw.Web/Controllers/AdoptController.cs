@@ -1,10 +1,8 @@
 ﻿using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Web.Infrastructure.Extensions;
-using MeetAPaw.Web.ViewModels.Adopt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using static MeetAPaw.Common.NotificationMessagesConstants;
 
 namespace MeetAPaw.Web.Controllers

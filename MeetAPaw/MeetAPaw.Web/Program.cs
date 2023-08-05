@@ -63,6 +63,8 @@ namespace MeetAPaw.Web
                 app.UseHsts();
             }
 
+            app.UseCors();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

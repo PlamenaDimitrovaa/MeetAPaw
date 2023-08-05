@@ -1,6 +1,8 @@
 ﻿using MeetAPaw.Services.Data.Interfaces;
+using MeetAPaw.Web.Infrastructure.Extensions;
 using MeetAPaw.Web.ViewModels.PetForAdoption;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using static MeetAPaw.Common.NotificationMessagesConstants;
 
 namespace MeetAPaw.Web.Controllers
@@ -64,6 +66,11 @@ namespace MeetAPaw.Web.Controllers
             if (!sheltersExists)
             {
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
+            }
+
+            if (this.User.GetId() != model.UserId)
+            {
+                return Unauthorized();
             }
 
             DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
@@ -137,7 +144,13 @@ namespace MeetAPaw.Web.Controllers
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
             }
 
-            DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
+            if (this.User.GetId() != model.UserId)
+            {
+                return Unauthorized();
+            }
+
+            string date = WebUtility.HtmlEncode(model.DateOfBirth.ToString());
+            DateTime dateOfBirth = DateTime.Parse(date);
 
             if (dateOfBirth >= DateTime.UtcNow)
             {
