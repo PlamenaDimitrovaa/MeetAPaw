@@ -1,4 +1,5 @@
-﻿@model PetProfileViewModel
+﻿@using MeetAPaw.Web.Infrastructure.Extensions;
+@model PetProfileViewModel
 @{
     ViewBag.Title = "Personal Profile";
 }
@@ -46,7 +47,7 @@
                     </ul>
                 </div>
             </div>
-            @if (User.Identity.Name == Model.Owner)
+            @if (User.Identity.Name == Model.Owner || this.User.IsAdmin())
             {
                 <a asp-controller="Pet" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                 <a asp-controller="Pet" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
@@ -57,7 +58,7 @@
 </div>
 </section>
 
-@if (User.Identity.Name != Model.Owner)
+@if (User.Identity.Name != Model.Owner || this.User.IsAdmin())
 {
 <section id="message">
     <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">

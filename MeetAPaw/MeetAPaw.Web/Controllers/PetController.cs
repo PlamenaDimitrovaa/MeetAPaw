@@ -80,9 +80,10 @@ namespace MeetAPaw.Web.Controllers
                 ModelState.AddModelError(nameof(model.PetTypeId), "Selected pet type does not exist!");
             }
 
-            if (this.User.GetId() != model.OwnerId)
+            if (this.User.GetId() != model.OwnerId && !this.User.IsAdmin())
             {
-                return Unauthorized();
+                this.TempData[ErrorMessage] = "You must be registered in order to add pets!";
+                return this.RedirectToAction("All", "Pet");
             }
 
             string date = WebUtility.HtmlEncode(model.DateOfBirth.ToString());
@@ -147,9 +148,10 @@ namespace MeetAPaw.Web.Controllers
                 return this.RedirectToAction("All", "Pet");
             }
 
-            if (this.User.GetId() != model.OwnerId)
+            if (this.User.GetId() != model.OwnerId && !this.User.IsAdmin())
             {
-                return Unauthorized();
+                this.TempData[ErrorMessage] = "You must be an owner in order to make changes!";
+                return this.RedirectToAction("All", "Pet");
             }
 
             string date = WebUtility.HtmlEncode(model.DateOfBirth.ToString());

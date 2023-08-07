@@ -68,9 +68,10 @@ namespace MeetAPaw.Web.Controllers
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
             }
 
-            if (this.User.GetId() != model.UserId)
+            if (this.User.GetId() != model.UserId && !User.IsAdmin())
             {
-                return Unauthorized();
+                this.TempData[ErrorMessage] = "You must be registered in order to add pets for adoption";
+                return RedirectToAction("Adopt", "Adopt");
             }
 
             DateTime dateOfBirth = DateTime.Parse(model.DateOfBirth);
@@ -144,9 +145,10 @@ namespace MeetAPaw.Web.Controllers
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
             }
 
-            if (this.User.GetId() != model.UserId)
+            if (this.User.GetId() != model.UserId && !User.IsAdmin())
             {
-                return Unauthorized();
+                this.TempData[ErrorMessage] = "You must be an owner in order to edit the pet";
+                return this.RedirectToAction("Adopt", "Adopt");
             }
 
             string date = WebUtility.HtmlEncode(model.DateOfBirth.ToString());
