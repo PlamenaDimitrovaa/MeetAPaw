@@ -182,7 +182,9 @@ namespace MeetAPaw.Services.Data
 
                 petsQuery = petsQuery
                     .Where(p => EF.Functions.Like(p.Name, wildCard) ||
-                                EF.Functions.Like(p.Description, wildCard));
+                                EF.Functions.Like(p.Description, wildCard) ||
+                                EF.Functions.Like(p.Breed, wildCard) ||
+                                EF.Functions.Like(p.PetType.Name, wildCard));
             }
 
             var allPets = await petsQuery

@@ -2,9 +2,11 @@ using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Web.Infrastructure.ModelBinders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static MeetAPaw.Web.Infrastructure.Extensions.WebApplicationBuilderExtensions;
+using static MeetAPaw.Common.GeneralApplicationConstants;
 
 namespace MeetAPaw.Web
 {
@@ -35,6 +37,7 @@ namespace MeetAPaw.Web
                 options.Password.RequiredLength =
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<MeetAPawDbContext>();
 
             builder.Services.AddControllersWithViews()
@@ -80,6 +83,8 @@ namespace MeetAPaw.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.MapDefaultControllerRoute();
             
