@@ -44,6 +44,13 @@ namespace MeetAPaw.Web.Infrastructure.Extensions
             }
         }
 
+        /// <summary>
+        ///  This methos seeds admin role if it does not exist.
+        ///  Passed email should be valid email of existing user in the application.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)
         {
             using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
