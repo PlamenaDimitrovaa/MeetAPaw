@@ -1,6 +1,8 @@
 ﻿
 using MeetAPaw.Data;
+using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MeetAPaw.Services.Data
 {
@@ -13,16 +15,17 @@ namespace MeetAPaw.Services.Data
             this.context = _context;
         }
 
-        public string UserFullName(string userId)
+        public async Task<string> UserFullName(string email)
         {
-            var user = this.context.Users.Find(userId);
+            ApplicationUser? user = await this.context
+                .Users.FirstOrDefaultAsync(u => u.Email == email);
 
-            if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
+            if (user == null)
             {
-                return null;
+                return string.Empty;
             }
 
-            return user.FirstName + " " + user.LastName;
+            return $"{user.FirstName} {user.LastName}";
         }
     }
 }
