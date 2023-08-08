@@ -14,13 +14,16 @@ namespace MeetAPaw.Web.Controllers
     {
         private readonly IPetService service;
         private readonly IPetTypeService petTypeService;
+        private readonly ILogger logger;
 
         public PetController(
             IPetService service,
-            IPetTypeService petTypeService)
+            IPetTypeService petTypeService,
+            ILogger<PetController> logger)
         {
             this.service = service;
             this.petTypeService = petTypeService;
+            this.logger = logger;
         }
 
         [AllowAnonymous]
@@ -32,7 +35,7 @@ namespace MeetAPaw.Web.Controllers
             queryModel.Pets = serviceModel.Pets;
             queryModel.TotalPets = serviceModel.TotalPetsCount;
             queryModel.PetsTypes = await this.petTypeService.AllPetsTypesNamesAsync();
-
+            logger.LogInformation("Successfully visualized pets");
             return View(queryModel);
         }
 
@@ -45,6 +48,7 @@ namespace MeetAPaw.Web.Controllers
                 return BadRequest();
             }
 
+            logger.LogInformation("Successfully visualized profile of a pet.");
             return View(model);
         }
 
@@ -66,7 +70,7 @@ namespace MeetAPaw.Web.Controllers
             };
 
             viewModel.OwnerId = GetUserId();
-
+            logger.LogInformation("Successfully visualized add form.");
             return View(viewModel); 
         }
 
@@ -109,10 +113,12 @@ namespace MeetAPaw.Web.Controllers
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new pet! Please try again later or contact administrator.");
+                logger.LogWarning("Unexpected error occurred.");
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 return this.View(model);
             }
 
+            logger.LogInformation("Successfully added pet.");
             TempData[SuccessMessage] = "You have added a new pet successfully!";
             return RedirectToAction("All", "Pet");
         }
@@ -127,7 +133,7 @@ namespace MeetAPaw.Web.Controllers
                 viewModel.PetsTypes = await this.petTypeService.AllPetTypesAsync();
 
                 viewModel.OwnerId = GetUserId();
-
+                logger.LogInformation("Successfully visualized edit pet form.");
                 return View(viewModel);
             }
             catch (Exception)
@@ -145,6 +151,7 @@ namespace MeetAPaw.Web.Controllers
             if (!petExists)
             {
                 TempData[ErrorMessage] = "This pet does not exists!";
+                logger.LogWarning("This pet does not exists!");
                 return this.RedirectToAction("All", "Pet");
             }
 
@@ -178,11 +185,13 @@ namespace MeetAPaw.Web.Controllers
             {
                 this.ModelState.AddModelError(string.Empty,
                     "Unexpected error occurred while trying to update the pet. Please try again later or contact administrator!");
+                logger.LogWarning("Unexpected error occurred");
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
 
                 return this.View(model);
             }
 
+            logger.LogInformation("Successfully added pet!");
             TempData[SuccessMessage] = "You have edited the pet successfully!";
             return this.RedirectToAction("Profile", "Pet", new { id });
         }
@@ -196,6 +205,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!houseExists)
             {
+                logger.LogWarning("This pet does not exists.");
                 return this.RedirectToAction("All", "Pet");
             }
 
@@ -220,6 +230,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
+                logger.LogWarning("This pet does not exists!");
                 TempData[ErrorMessage] = "You cannot delete this pet!";
                 return this.RedirectToAction("All", "Pet");
             }
@@ -227,6 +238,7 @@ namespace MeetAPaw.Web.Controllers
             try
             {
                 await this.service.DeletePetByIdAsync(id);
+                logger.LogInformation("You have deleted the pet successfully!");
                 TempData[SuccessMessage] = "You have deleted the pet successfully!";
                 return this.RedirectToAction("All", "Pet");
             }

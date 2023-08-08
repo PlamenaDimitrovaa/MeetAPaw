@@ -12,20 +12,24 @@ namespace MeetAPaw.Web.Controllers
         private readonly IPetForAdoptionService service;
         private readonly IPetTypeService petTypeService;
         private readonly IShelterService shelterService;
-
+        private readonly ILogger logger;
         public PetForAdoptionController(
             IPetForAdoptionService service,
             IPetTypeService petService,
-            IShelterService shelterService)
+            IShelterService shelterService,
+            ILogger<PetForAdoptionController> logger)
         {
             this.service = service;
             this.petTypeService = petService;
             this.shelterService = shelterService;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Profile(int id)
         {
             var model = await this.service.GetProfileToPetForAdoptionAsync(id);
+
+            logger.LogInformation("Successfully visualized profile of the pet for adoption.");
 
             if (model == null)
             {
@@ -45,7 +49,7 @@ namespace MeetAPaw.Web.Controllers
                 PetsTypes = await this.petTypeService.AllPetTypesAsync()
             };
 
-
+            logger.LogInformation("Successfully visualized add pet for adoption form");
             viewModel.UserId = GetUserId();
 
             return View(viewModel);
@@ -58,6 +62,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petTypeExists)
             {
+                logger.LogWarning("This pet type does not exists");
                 ModelState.AddModelError(nameof(model.PetTypeId), "Selected pet type does not exist!");
             }
 
@@ -65,6 +70,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!sheltersExists)
             {
+                logger.LogWarning("This shelter does not exists");
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
             }
 
@@ -86,6 +92,7 @@ namespace MeetAPaw.Web.Controllers
                 model.Shelters = await this.shelterService.AllSheltersAsync();
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 TempData[ErrorMessage] = "You cannot add pet for adoption!";
+                logger.LogWarning("You cannot add pet for adoption");
                 return View(model);
             }
 
@@ -99,9 +106,11 @@ namespace MeetAPaw.Web.Controllers
                 model.Shelters = await this.shelterService.AllSheltersAsync();
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 TempData[ErrorMessage] = "You cannot add pet for adoption!";
+                logger.LogWarning("You cannot add pet for adoption");
                 return this.View(model);
             }
 
+            logger.LogInformation("You have successfully added a pet for adoption");
             TempData[SuccessMessage] = "You have successfully added a pet for adoption!";
             return RedirectToAction("Adopt", "Adopt");
         }
@@ -115,8 +124,9 @@ namespace MeetAPaw.Web.Controllers
 
                 viewModel.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 viewModel.Shelters = await this.shelterService.AllSheltersAsync();
-
                 viewModel.UserId = GetUserId();
+
+                logger.LogInformation("Successfully visualized edit pet for adoption form.");
 
                 return View(viewModel);
             }
@@ -134,6 +144,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
+                logger.LogWarning("This pet does not exists.");
                 TempData[ErrorMessage] = "You cannot edit this pet for adoption! It does not exists!";
                 return this.RedirectToAction("Adopt", "Adopt");
             }
@@ -142,6 +153,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!sheltersExists)
             {
+                logger.LogWarning("This shelter does not exists");
                 ModelState.AddModelError(nameof(model.ShelterId), "Selected shelter does not exist!");
             }
 
@@ -156,6 +168,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (dateOfBirth >= DateTime.UtcNow)
             {
+                logger.LogWarning("This date of birth is not valid");
                 ModelState.AddModelError(nameof(model.DateOfBirth), "Selected date of birth is not valid!");
             }
 
@@ -164,6 +177,7 @@ namespace MeetAPaw.Web.Controllers
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 model.Shelters = await this.shelterService.AllSheltersAsync();
                 TempData[ErrorMessage] = "You cannot edit pet for adoption!";
+                logger.LogWarning("You cannot edit pet for adoption");
                 return this.View(model);
             }
 
@@ -177,9 +191,11 @@ namespace MeetAPaw.Web.Controllers
                     "Unexpected error occurred while trying to update the pet. Please try again later or contact administrator!");
                 model.PetsTypes = await this.petTypeService.AllPetTypesAsync();
                 TempData[ErrorMessage] = "You cannot edit pet for adoption!";
+                logger.LogWarning("You cannot edit pet for adoption");
                 return this.View(model);
             }
 
+            logger.LogInformation("Successfully edited pet for adoption");
             TempData[SuccessMessage] = "You have successfully edited the pet for adoption!";
             return this.RedirectToAction("Profile", "PetForAdoption", new { id });
         }
@@ -188,11 +204,12 @@ namespace MeetAPaw.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            bool houseExists = await this.service
+            bool petExists = await this.service
                 .PetForAdoptionExistsByIdAsync(id);
 
-            if (!houseExists)
+            if (!petExists)
             {
+                logger.LogWarning("This pet does not exists.");
                 return this.RedirectToAction("Adopt", "Adopt");
             }
 
@@ -200,7 +217,7 @@ namespace MeetAPaw.Web.Controllers
             {
                 PetForAdoptionPreDeleteDetailsViewModel viewModel =
                     await this.service.GetPetForAdoptionForDeleteByIdAsync(id);
-
+                logger.LogInformation("Successfully visualized delete page");
                 return this.View(viewModel);
             }
             catch (Exception)
@@ -217,6 +234,7 @@ namespace MeetAPaw.Web.Controllers
 
             if (!petExists)
             {
+                logger.LogWarning("This pet does not exists");
                 return this.RedirectToAction("Adopt", "Adopt");
             }
 
@@ -224,6 +242,7 @@ namespace MeetAPaw.Web.Controllers
             {
                 await this.service.DeletePetForAdoptionByIdAsync(id);
                 TempData[SuccessMessage] = "You have successfully deleted the pet for adoption!";
+                logger.LogInformation("Successfully deleted pet for adoption");
                 return this.RedirectToAction("Adopt", "Adopt");
             }
             catch (Exception)

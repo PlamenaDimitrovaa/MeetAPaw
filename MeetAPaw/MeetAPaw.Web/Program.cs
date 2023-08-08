@@ -16,6 +16,12 @@ namespace MeetAPaw.Web
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+            builder.Host.ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+            });
+
             var connectionString = 
                 builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 

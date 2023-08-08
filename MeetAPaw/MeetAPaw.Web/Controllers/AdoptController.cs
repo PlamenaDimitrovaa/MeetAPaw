@@ -1,10 +1,7 @@
-﻿using MeetAPaw.Data.Models;
-using MeetAPaw.Services.Data.Interfaces;
+﻿using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Services.Data.Models.AdoptPet;
-using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.Infrastructure.Extensions;
 using MeetAPaw.Web.ViewModels.Adopt;
-using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static MeetAPaw.Common.NotificationMessagesConstants;
@@ -16,12 +13,15 @@ namespace MeetAPaw.Web.Controllers
     {
         private readonly IAdoptService service;
         private readonly IPetTypeService petTypeService;
+        private readonly ILogger logger;
 
         public AdoptController(IAdoptService service,
-            IPetTypeService petTypeService)
+            IPetTypeService petTypeService,
+             ILogger<AdoptController> logger)
         {
             this.service = service;
             this.petTypeService = petTypeService;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Adopt([FromQuery] AllPetsForAdoptionQueryModel queryModel)
@@ -32,46 +32,37 @@ namespace MeetAPaw.Web.Controllers
             queryModel.Pets = serviceModel.Pets;
             queryModel.TotalPets = serviceModel.TotalPetsCount;
             queryModel.PetsTypes = await this.petTypeService.AllPetsTypesNamesAsync();
+            
+            logger.LogInformation("Successfully visualized pets for adoption");
 
             return View(queryModel);
         }
 
-        //public async Task<IActionResult> Adopt()
-        //{
-        //    try
-        //    {
-        //        var model = await this.service.GetPetsForAdoptionAsync();
-        //        return View(model);
-
-        //    }
-        //    catch (Exception)
-        //    {
-        //        TempData[ErrorMessage] = "You have go log in to adopt a pet!";
-        //        throw;
-        //    }
-        //}
-
         public async Task<IActionResult> AdoptDog()
         {
             var model = await this.service.GetDogsForAdoptionAsync();
+            logger.LogInformation("Successfully visualized dogs for adoption");
             return View(model);
         }
 
         public async Task<IActionResult> AdoptCat()
         {
             var model = await this.service.GetCatsForAdoptionAsync();
+            logger.LogInformation("Successfully visualized cats for adoption");
             return View(model);
         }
 
         public async Task<IActionResult> AdoptBird()
         {
             var model = await this.service.GetBirdsForAdoptionAsync();
+            logger.LogInformation("Successfully visualized birds for adoption");
             return View(model);
         }
 
         public async Task<IActionResult> AdoptRabbit()
         {
             var model = await this.service.GetRabbitsForAdoptionAsync();
+            logger.LogInformation("Successfully visualized rabbits for adoption");
             return View(model);
         }
 
@@ -79,6 +70,8 @@ namespace MeetAPaw.Web.Controllers
         public async Task<IActionResult> Adoption(int id)
         {
             var model = await service.GetPetForAdoptionByIdAsync(id);
+
+            logger.LogInformation("Successfully visualized adoption view");
 
             if (model == null)
             {
@@ -96,6 +89,7 @@ namespace MeetAPaw.Web.Controllers
             if (petForAdoption == null)
             {
                 TempData[ErrorMessage] = "You cannot adopt this pet!";
+                logger.LogWarning("You cannot adopt this pet!");
                 return NotFound();
             }
 
@@ -103,6 +97,7 @@ namespace MeetAPaw.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to adopt a pet!");
                 TempData[ErrorMessage] = "You cannot adopt this pet!";
+                logger.LogWarning("You cannot adopt this pet!");
                 return BadRequest();
             }
 
@@ -111,6 +106,7 @@ namespace MeetAPaw.Web.Controllers
             if (adopter == null)
             {
                 TempData[ErrorMessage] = "You cannot adopt this pet!";
+                logger.LogWarning("You cannot adopt this pet!");
                 return Unauthorized(); 
             }
 
@@ -119,6 +115,7 @@ namespace MeetAPaw.Web.Controllers
                 await this.service.UpdatePetForAdoptionAsync(petForAdoption, adopter);
                 await this.service.AddAdoption(adopter, petForAdoption);
                 TempData[SuccessMessage] = "You have successfully adopted a pet!";
+                logger.LogInformation("You have successfully adopted a pet!");
                 return RedirectToAction("Index", "Home"); 
             }
             catch (Exception)
