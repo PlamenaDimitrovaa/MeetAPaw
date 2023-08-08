@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                @if (!Model.IsAdopted)
+                @if (!Model.IsAdopted && User.Identity.Name != Model.User)
                 {
                      <a asp-controller="Adopt" asp-action="Adoption" asp-route-id="@Model.Id" class="btn btn-primary">Adopt me!</a>
                 }
