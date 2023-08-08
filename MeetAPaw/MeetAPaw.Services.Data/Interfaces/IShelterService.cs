@@ -1,5 +1,4 @@
 ﻿
-using MeetAPaw.Web.ViewModels.PetType;
 using MeetAPaw.Web.ViewModels.Shelter;
 
 namespace MeetAPaw.Services.Data.Interfaces
@@ -9,5 +8,7 @@ namespace MeetAPaw.Services.Data.Interfaces
         Task<IEnumerable<ShelterViewModel>> AllSheltersAsync();
 
         Task<bool> ShelterExistsByIdAsync(int id);
+
+        Task<ShelterProfileViewModel> GetProfileAsync(int id);
     }
 }

@@ -1,0 +1,97 @@
+﻿@model ShelterProfileViewModel
+
+@{
+    ViewData["Title"] = "Shelter Details";
+}
+
+<section id="about">
+    <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
+        <h2 class="text-center">Shelter Details</h2>
+
+        <div>
+            <h3>Name:</h3>
+            <p>@Model.Name</p>
+        </div>
+
+        <div>
+            <h3>Address:</h3>
+            <p>@Model.Address</p>
+        </div>
+
+        @if (Model.PetsForAdoption.Any())
+        {
+            <div>
+                <h3 class="text-center">Pets Available for Adoption:</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Breed</th>
+                            <th>Date of birth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pet in Model.PetsForAdoption)
+                        {
+                            <tr>
+                                <td>@pet.Name</td>
+                                @if (pet.Breed != null)
+                                {
+                                    <td>@pet.Breed</td>
+                                }
+                                else
+                                {
+                                    <td>No breed</td>
+                                }
+                                <td>@pet.DateOfBirth</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <h3 class="text-center">No pets for adoption available!</h3>
+        }
+
+        @if (Model.Adoptions.Any())
+        {
+            <div>
+                <h3 class="text-center mt-5">Adoptions:</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Adopter</th>
+                            <th>Pet</th>
+                            <th>More Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var adoption in Model.Adoptions)
+                        {
+                            <tr>
+                                <td>@adoption.Adopter</td>
+                                <td>@adoption.Pet</td>
+                                @if (adoption.MoreInformation != null)
+                                {
+                                    <td>@adoption.MoreInformation</td>
+                                }
+                                else
+                                {
+                                    <td>No more information</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <h3 class="text-center">No adoptions added yet!</h3>
+        }
+
+
+    </div>
+</section>
