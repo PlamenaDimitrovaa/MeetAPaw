@@ -24,8 +24,9 @@ namespace MeetAPaw.Web.Infrastructure.ModelBinders
                 {
                     var valueAsString = valueProviderResult.FirstValue;
 
-                    var dateTime = DateTime.ParseExact(valueAsString!, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-               
+                    var dateTime = DateTime.ParseExact(valueAsString!, "dddd, dd MMMM yyyy HH:mm", CultureInfo.InvariantCulture);
+
+
                     bindingContext.Result = ModelBindingResult.Success(dateTime);
 
                     return Task.CompletedTask;

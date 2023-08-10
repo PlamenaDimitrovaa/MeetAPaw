@@ -48,7 +48,7 @@ namespace MeetAPaw.Services.Data
                 Description = p.Description,
                 ImageUrl = p.ImageUrl,
                 Gender = p.Gender.ToString(),
-                DateOfBirth = p.DateOfBirth.ToString(),
+                DateOfBirth = p.DateOfBirth.ToString("dddd, dd MMMM yyyy HH:mm"),
                 PetType = p.PetType.Name,
                 Breed = p.Breed
             })
@@ -67,7 +67,7 @@ namespace MeetAPaw.Services.Data
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Gender = p.Gender.ToString(),
-                    DateOfBirth = p.DateOfBirth.ToString("yyyy/MM/dd"),
+                    DateOfBirth = p.DateOfBirth.ToString("dddd, dd MMMM yyyy HH:mm"),
                     PetType = p.PetType.Name,
                     Breed = p.Breed
                 })
@@ -91,7 +91,7 @@ namespace MeetAPaw.Services.Data
                 Gender = pet.Gender.ToString(),
                 Breed = pet.Breed,
                 Color = pet.Color,
-                DateOfBirth = pet.DateOfBirth.ToString(),
+                DateOfBirth = pet.DateOfBirth.ToString("dddd, dd MMMM yyyy HH:mm"),
                 OwnerId = pet.OwnerId.ToString(),
                 PetTypeId = pet.PetTypeId
             };
@@ -129,7 +129,7 @@ namespace MeetAPaw.Services.Data
                 ImageUrl = p.ImageUrl,
                 Description = p.Description,
                 Gender = p.Gender.ToString(),
-                DateOfBirth= p.DateOfBirth.ToString("yyyy/MM/dd"),
+                DateOfBirth= p.DateOfBirth.ToString("dddd, dd MMMM yyyy HH:mm"),
                 PetType= p.PetType.Name,
                 Breed = p.Breed,
                 Owner = p.Owner.UserName,
