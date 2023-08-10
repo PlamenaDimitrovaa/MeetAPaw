@@ -58,6 +58,11 @@ namespace MeetAPaw.Web
 
            builder.Services.AddApplicationServices(typeof(IPetService));
 
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.AccessDeniedPath = "/Home/Error/401";
+            });
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("Allow", builder =>
@@ -95,9 +100,16 @@ namespace MeetAPaw.Web
                 app.SeedAdministrator(DevelopmentAdminEmail);
             }
 
-            app.MapDefaultControllerRoute();
-            
-            app.MapRazorPages();
+            app.UseEndpoints(config =>
+            {
+                config.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                 );
+
+                app.MapDefaultControllerRoute();
+                app.MapRazorPages();
+            });
 
             app.Run();
         }

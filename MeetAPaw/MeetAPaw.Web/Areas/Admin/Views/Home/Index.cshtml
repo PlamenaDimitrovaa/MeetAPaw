@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="mt-4 p-5 bg-light text-center">
+    <h2 class="display-4">Hello, Admin!</h2>
+    <p class="lead mb-1 mt-3">
+        This is your administrator area - you can <b>read</b>, <b>create</b>,
+        <b>delete</b> and <b>edit</b>.
+    </p>
+   
+    <hr class="my-4">
+    <a asp-area="" asp-controller="Pet" asp-action="All"
+       class="btn btn-outline-secondary btn-lg">All Pets</a>
+    <a asp-area="" asp-controller="Pet" asp-action="Add"
+       class="btn btn-outline-secondary btn-lg">Add Pet</a>
+    <a asp-area="Admin" asp-controller="Pet" asp-action="Edit"
+       class="btn btn-outline-secondary btn-lg">Edit Pet</a>
+    <a asp-area="Admin" asp-controller="Pet" asp-action="Delete"
+       class="btn btn-outline-secondary btn-lg">Delete Pet</a>
+    <a asp-area="Admin" asp-controller="Adopt" asp-action="All"
+       class="btn btn-outline-secondary btn-lg">All Pets For Adoption</a>
+    <a asp-area="" asp-controller="PetForAdoption" asp-action="Add"
+       class="btn btn-outline-secondary btn-lg">Add Pet For Adoption</a>
+    <a asp-area="Admin" asp-controller="PetForAdoption" asp-action="Edit"
+       class="btn btn-outline-secondary btn-lg">Edit Pet For Adoption</a>
+    <a asp-area="Admin" asp-controller="PetForAdoption" asp-action="Delete"
+       class="btn btn-outline-secondary btn-lg">Delete Pet For Adoption</a>
+</div>

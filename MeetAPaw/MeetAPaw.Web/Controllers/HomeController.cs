@@ -2,7 +2,7 @@
 using MeetAPaw.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using static MeetAPaw.Common.GeneralApplicationConstants;
 
 namespace MeetAPaw.Web.Controllers
 {
@@ -16,6 +16,11 @@ namespace MeetAPaw.Web.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName});
+            }
+
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("All", "Pet");
