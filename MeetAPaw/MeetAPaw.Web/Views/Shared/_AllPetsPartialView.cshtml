@@ -17,7 +17,7 @@
                         <h5 class="card-subtitle mb-2 text-body-secondary">@pet.PetType</h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary">@pet.Breed</h6>
                         <p class="card-text">@pet.Description</p>
-                        <a asp-controller="Pet" asp-action="Profile" asp-route-id="@pet.Id" class="btn btn-primary">See profile</a>
+                        <a asp-area="" asp-controller="Pet" asp-action="Profile" asp-route-id="@pet.Id" class="btn btn-primary">See profile</a>
                     </div>
                 </div>
             }

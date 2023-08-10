@@ -54,7 +54,7 @@
 
                 @if (!Model.IsAdopted && User.Identity.Name != Model.User)
                 {
-                     <a asp-controller="Adopt" asp-action="Adoption" asp-route-id="@Model.Id" class="btn btn-primary">Adopt me!</a>
+                    <a asp-area="" asp-controller="Adopt" asp-action="Adoption" asp-route-id="@Model.Id" class="btn btn-primary">Adopt me!</a>
                 }
                 else
                 {
@@ -63,33 +63,33 @@
 
                 @if (Model.PetType.ToLower() == "dog")
                 {
-                    <a asp-controller="Adopt" asp-action="AdoptDog" class="btn btn-secondary">All Dogs For Adoption</a>
+                    <a asp-area="" asp-controller="Adopt" asp-action="AdoptDog" class="btn btn-secondary">All Dogs For Adoption</a>
                 }
 
                 @if (Model.PetType.ToLower() == "cat")
                 {
-                    <a asp-controller="Adopt" asp-action="AdoptCat" class="btn btn-secondary">All Cats For Adoption</a>
+                    <a asp-area="" asp-controller="Adopt" asp-action="AdoptCat" class="btn btn-secondary">All Cats For Adoption</a>
                 }
 
                 @if (Model.PetType.ToLower() == "bird")
                 {
-                    <a asp-controller="Adopt" asp-action="AdoptBird" class="btn btn-secondary">All Birds For Adoption</a>
+                    <a asp-area="" asp-controller="Adopt" asp-action="AdoptBird" class="btn btn-secondary">All Birds For Adoption</a>
                 }
 
                 @if (Model.PetType.ToLower() == "rabbit")
                 {
-                    <a asp-controller="Adopt" asp-action="AdoptRabbit" class="btn btn-secondary">All Rabbits For Adoption</a>
+                    <a asp-area="" asp-controller="Adopt" asp-action="AdoptRabbit" class="btn btn-secondary">All Rabbits For Adoption</a>
                 }
 
-                <a asp-controller="Adopt" asp-action="Adopt" class="btn btn-secondary">All Pets For Adoption</a>
+                <a asp-area="" asp-controller="Adopt" asp-action="Adopt" class="btn btn-secondary">All Pets For Adoption</a>
 
                 <div class="container-fluid mt-2">
                     <div class="row">
                         <div class="col">
                             @if (User.Identity.Name == Model.User || this.User.IsAdmin())
                             {
-                                <a asp-controller="PetForAdoption" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                                <a asp-controller="PetForAdoption" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                                <a asp-area="" asp-controller="PetForAdoption" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                                <a asp-area="" asp-controller="PetForAdoption" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
                             }
                         </div>
                     </div>
