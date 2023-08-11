@@ -63,7 +63,6 @@ namespace MeetAPaw.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-
             AddPetViewModel viewModel = new AddPetViewModel()
             {
                 PetsTypes = await this.petTypeService.AllPetTypesAsync()
