@@ -18,7 +18,7 @@ namespace MeetAPaw.Services.Data
             this.context = context;
         }
 
-        public async Task AddPetForAdoptionAsync(AddPetForAdoptionViewModel model)
+        public async Task<int> AddPetForAdoptionAsync(AddPetForAdoptionViewModel model)
         {
             PetForAdoption pet = new PetForAdoption()
             {
@@ -38,6 +38,8 @@ namespace MeetAPaw.Services.Data
 
             await this.context.PetsForAdoption.AddAsync(pet);
             await this.context.SaveChangesAsync();
+
+            return pet.Id;
         }
 
         public async Task<PetForAdoptionProfileViewModel?> GetProfileToPetForAdoptionAsync(int id)
@@ -127,6 +129,22 @@ namespace MeetAPaw.Services.Data
                 Name = pet.Name,
                 ImageUrl = pet.ImageUrl
             };
+        }
+
+        public async Task<PetForAdoptionViewModel> GetPetForAdoptionByIdAsync(int id)
+        {
+            return await this.context.PetsForAdoption
+                .Where(h => h.Id == id)
+                .Select(h => new PetForAdoptionViewModel
+                {
+                    Id = h.Id,
+                    Name = h.Name,
+                    Breed = h.Breed,
+                    PetTypeId = h.PetTypeId,
+                    Address = h.Address,
+                    ShelterId = h.ShelterId,
+                    DateOfBirth = h.DateOfBirth.ToString()
+                }).FirstOrDefaultAsync();
         }
 
         public async Task DeletePetForAdoptionByIdAsync(int id)

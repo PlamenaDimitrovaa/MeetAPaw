@@ -2,6 +2,7 @@
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data;
 using MeetAPaw.Services.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MeetAPaw.Services.Tests
 {
@@ -43,12 +44,25 @@ namespace MeetAPaw.Services.Tests
         }
 
         [Test]
-        [TestCase("7D8C975B-6482-4C8C-AF23-9D6E453C8998")]
-        public async Task GetFullNameByIdAsyncShouldReturnTheCorrectName(string userId)
+        [TestCase("testUser@gmail.com")]
+        public async Task UserFullNameShouldReturnTrueResult(string email)
         {
-            var result = await this.userService.UserFullName(userId);
+            var user = await this.data
+                .Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            var result = user.FirstName + " " + user.LastName;
 
             Assert.That(result, Is.EqualTo("TestFirstName TestLastName"));
+        }
+
+        [Test]
+        [TestCase("gmail.com")]
+        public async Task UserFullNameShouldReturnFalseResult(string email)
+        {
+            var user = await this.data
+                .Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            Assert.That(user, Is.EqualTo(null));
         }
     }
 }

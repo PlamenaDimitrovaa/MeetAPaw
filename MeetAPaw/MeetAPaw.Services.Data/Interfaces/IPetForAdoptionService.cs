@@ -6,7 +6,7 @@ namespace MeetAPaw.Services.Data.Interfaces
 {
     public interface IPetForAdoptionService
     {
-        Task AddPetForAdoptionAsync(AddPetForAdoptionViewModel model);
+        Task<int> AddPetForAdoptionAsync(AddPetForAdoptionViewModel model);
 
         Task<PetForAdoptionProfileViewModel?> GetProfileToPetForAdoptionAsync(int id);
 
@@ -20,5 +20,7 @@ namespace MeetAPaw.Services.Data.Interfaces
         Task<PetForAdoptionPreDeleteDetailsViewModel> GetPetForAdoptionForDeleteByIdAsync(int id);
 
         Task DeletePetForAdoptionByIdAsync(int id);
+
+        Task<PetForAdoptionViewModel> GetPetForAdoptionByIdAsync(int id);
     }
 }

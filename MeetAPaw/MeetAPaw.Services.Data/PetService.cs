@@ -18,7 +18,7 @@ namespace MeetAPaw.Services.Data
             this.context = context;
         }
 
-        public async Task AddPetAsync(AddPetViewModel model, string ownerId)
+        public async Task<int> AddPetAsync(AddPetViewModel model, string ownerId)
         {
             Pet pet = new Pet()
             {
@@ -36,6 +36,8 @@ namespace MeetAPaw.Services.Data
 
             await this.context.Pets.AddAsync(pet);
             await this.context.SaveChangesAsync();   
+
+            return pet.Id;
         }
 
         public async Task<IEnumerable<PetViewModel>> GetAllPetsAsync()
