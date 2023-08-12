@@ -7,8 +7,6 @@ namespace MeetAPaw.Services.Data.Interfaces
     {
         Task<string> UserFullName(string email);
 
-        Task<string> GetFullNameByIdAsync(string userId);
-
         Task<IEnumerable<UserViewModel>> AllAsync();
     }
 }

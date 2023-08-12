@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="Moq.EntityFrameworkCore" Version="7.0.0.2" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
+    <PackageReference Include="coverlet.collector" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeetAPaw.Data.Models\MeetAPaw.Data.Models.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Data\MeetAPaw.Data.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Services.Data.Models\MeetAPaw.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Services.Data\MeetAPaw.Services.Data.csproj" />
+    <ProjectReference Include="..\MeetAPaw.Web.ViewModels\MeetAPaw.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

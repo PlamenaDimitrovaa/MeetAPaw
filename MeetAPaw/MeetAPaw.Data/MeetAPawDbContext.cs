@@ -13,7 +13,10 @@ namespace MeetAPaw.Data
         public MeetAPawDbContext(DbContextOptions<MeetAPawDbContext> options)
             :base(options)
         {
-            
+            if (!this.Database.IsRelational())
+            {
+                this.Database.EnsureCreated();
+            }
         }
 
         public DbSet<Pet> Pets { get; set; } = null!;

@@ -32,20 +32,6 @@ namespace MeetAPaw.Services.Data
             return users;
         }
 
-        public async Task<string> GetFullNameByIdAsync(string userId)
-        {
-            ApplicationUser? user = await this.context
-                .Users
-                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-
-            if (user == null)
-            {
-                return string.Empty;
-            }
-
-            return $"{user.FirstName} {user.LastName}";
-        }
-
         public async Task<string> UserFullName(string email)
         {
             ApplicationUser? user = await this.context
