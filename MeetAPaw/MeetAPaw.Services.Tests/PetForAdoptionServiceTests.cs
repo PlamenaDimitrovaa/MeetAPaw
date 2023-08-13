@@ -45,31 +45,6 @@ namespace MeetAPaw.Services.Tests
             Assert.IsNotNull(pet);
         }
 
-        //[Test]
-        //[TestCase(15)]
-        //public async Task GetProfileToPetForAdoptionAsyncShouldReturnTheCorrectProfile(int id)
-        // {
-        //     var petForAdoption = new PetForAdoption()
-        //     {
-        //         Id = 101,
-        //         Name = "testPetForAdoption",
-        //         PetTypeId = 2,
-        //         Breed = "Persian",
-        //         Color = "White",
-        //         ImageUrl = "https://img.freepik.com/free-photo/white-cat-garden_1150-43949.jpg?w=996&t=st=1691799258~exp=1691799858~hmac=49e4a9e85d16b87e6eb7af269d4bf3e5317250f8a09034c157b336c34da9c090",
-        //         DateOfBirth = DateTime.Parse("08/09/2023"),
-        //         Address = "Sofia, Bulgaria",
-        //         Description = "testing the description of the generated pet.",
-        //         Gender = MeetAPaw.Data.Models.Enums.PetGender.Female,
-        //     };
-
-        //     await this.data.PetsForAdoption.AddAsync(petForAdoption);
-        //     await this.data.SaveChangesAsync();
-
-        //     var pets = await this.petForAdoptionService.GetProfileToPetForAdoptionAsync(id);
-
-        //     Assert.That(pets.Id, Is.EqualTo(petForAdoption.Id));
-        // }
         [Test]
         [TestCase(102)]
         public async Task GetPetForAdoptionForEditByIdAsyncShouldWorkCorrect(int id)
@@ -128,14 +103,7 @@ namespace MeetAPaw.Services.Tests
 
             Assert.That(result, Is.False);
         }
-
-        //[Test]
-        //[TestCase(101)]
-        //public async Task GetPetForAdoptionForDeleteByIdAsync(int id)
-        //{
-
-        //}
-
+        
         [Test]
         [TestCase(10)]
         public async Task DeletePetForAdoptionByIdAsync(int id)

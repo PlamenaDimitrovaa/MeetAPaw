@@ -45,7 +45,7 @@ namespace MeetAPaw.Services.Tests
 
             var shelters = await this.shelterService.AllSheltersAsync();
 
-            Assert.That(shelters.Count(), Is.EqualTo(8)); //with the seeded ones
+            Assert.That(shelters.Count(), Is.EqualTo(8));
         }
 
         [Test]
