@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Web.ViewModels.Pet;
+﻿using MeetAPaw.Web.ViewModels.Pet;
 
 namespace MeetAPaw.Services.Data.Models.Pet
 {
@@ -10,7 +9,6 @@ namespace MeetAPaw.Services.Data.Models.Pet
             this.Pets = new HashSet<PetViewModel>();
         }
         public int TotalPetsCount { get; set; }
-
         public IEnumerable<PetViewModel> Pets { get; set; }
     }
 }

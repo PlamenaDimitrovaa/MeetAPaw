@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Data;
+﻿using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 
 namespace MeetAPaw.Services.Tests
@@ -102,7 +101,7 @@ namespace MeetAPaw.Services.Tests
             await this.data.SaveChangesAsync();
         }
 
-            [OneTimeTearDown]
-            public void TearDownBase() => this.data.Dispose();
+        [OneTimeTearDown]
+        public void TearDownBase() => this.data.Dispose();
     }
 }

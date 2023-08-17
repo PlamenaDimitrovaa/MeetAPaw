@@ -1,6 +1,4 @@
-﻿
-using MeetAPaw.Web.ViewModels.Home;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static MeetAPaw.Common.GeneralApplicationConstants;
 

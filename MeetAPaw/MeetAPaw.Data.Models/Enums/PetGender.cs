@@ -1,5 +1,4 @@
-﻿
-namespace MeetAPaw.Data.Models.Enums
+﻿namespace MeetAPaw.Data.Models.Enums
 {
     public enum PetGender
     {

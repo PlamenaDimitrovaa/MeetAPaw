@@ -9,18 +9,26 @@
 
 <section id="about">
     <div class="container mt-4 pt-4 bg-light p-2 text-dark bg-opacity-75">
-        <h2 class="text-center">Shelter Details</h2>
-
-        <div>
-            <h3>Name:</h3>
-            <p>@Model.Name</p>
+        <div class="row">
+            <div class="col-6">
+                <img src="@Model.ImageUrl" class="w-25"/>
+            </div>
+            <div class="col-6">
+                <h2>Shelter Details</h2>
+            </div>
         </div>
-
-        <div>
-            <h3>Address:</h3>
-            <p>@Model.Address</p>
+        <hr />
+        <div class="row">
+            <div class="col-6">
+                <h5>Name:</h5>
+                <h6>@Model.Name</h6>
+            </div>
+            <div class="col-6">
+                <h5>Address:</h5>
+                <h6>@Model.Address</h6>
+            </div>
         </div>
-
+        <hr />
         @if (Model.PetsForAdoption.Any())
         {
             <div>

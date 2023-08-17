@@ -18,6 +18,9 @@ namespace MeetAPaw.Web.ViewModels.Shelter
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
         public string Address { get; set; } = null!;
 
+        [Required(AllowEmptyStrings = false)]
+        public string ImageUrl { get; set; } = null!;
+
         public virtual ICollection<PetForAdoptionViewModel> PetsForAdoption { get; set; }
 
         public virtual ICollection<AdoptionViewModel> Adoptions { get; set; }

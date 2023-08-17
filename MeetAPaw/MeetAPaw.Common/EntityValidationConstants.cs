@@ -69,5 +69,11 @@ namespace MeetAPaw.Common
             public const int LastNameMinLength = 2;
             public const int LastNameMaxLength = 15;
         }
+
+        public static class Adoption
+        {
+            public const int MoreInformationMaxLength = 2000;
+            public const int MoreInformationMinLength = 10;
+        }
     }
 }

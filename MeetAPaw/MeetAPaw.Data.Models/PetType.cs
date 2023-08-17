@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static MeetAPaw.Common.EntityValidationConstants.PetType;
 
 namespace MeetAPaw.Data.Models
@@ -10,7 +9,6 @@ namespace MeetAPaw.Data.Models
         {
             this.Pets = new HashSet<Pet>();
         }
-
         public int Id { get; set; }
 
         [Required]

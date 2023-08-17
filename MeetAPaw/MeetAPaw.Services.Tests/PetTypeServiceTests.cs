@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Services.Data;
+﻿using MeetAPaw.Services.Data;
 using MeetAPaw.Services.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

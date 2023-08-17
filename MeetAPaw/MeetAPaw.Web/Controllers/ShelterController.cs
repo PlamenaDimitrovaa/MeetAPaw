@@ -1,6 +1,5 @@
 ﻿using MeetAPaw.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace MeetAPaw.Web.Controllers
 {

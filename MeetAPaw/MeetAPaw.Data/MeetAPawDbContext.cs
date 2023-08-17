@@ -1,10 +1,8 @@
-﻿
-using MeetAPaw.Data.Models;
+﻿using MeetAPaw.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Reflection.Emit;
 
 namespace MeetAPaw.Data
 {
@@ -13,7 +11,6 @@ namespace MeetAPaw.Data
         public MeetAPawDbContext(DbContextOptions<MeetAPawDbContext> options)
             :base(options)
         {
-           
         }
 
         public DbSet<Pet> Pets { get; set; } = null!;
@@ -36,10 +33,10 @@ namespace MeetAPaw.Data
             base.OnModelCreating(builder);
 
             builder.Entity<Adoption>()
-            .HasOne(a => a.PetForAdoption)
-            .WithMany()
-            .HasForeignKey(a => a.PetForAdoptionId)
-            .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(a => a.PetForAdoption)
+                .WithMany()
+                .HasForeignKey(a => a.PetForAdoptionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Adoption>()
                 .HasOne(a => a.Adopter)

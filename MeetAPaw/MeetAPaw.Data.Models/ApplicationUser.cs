@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static MeetAPaw.Common.EntityValidationConstants.User;
@@ -13,6 +12,7 @@ namespace MeetAPaw.Data.Models
             this.Id = Guid.NewGuid();
             this.OwnedPets = new HashSet<Pet>();
             this.PetsForAdoption = new HashSet<PetForAdoption>();
+            this.PetsForAdoptionAdded = new HashSet<PetForAdoption>();
         }
 
         [Required]

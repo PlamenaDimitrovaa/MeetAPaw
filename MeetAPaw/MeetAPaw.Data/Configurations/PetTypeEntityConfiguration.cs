@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Data.Models;
+﻿using MeetAPaw.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +10,6 @@ namespace MeetAPaw.Data.Configurations
         {
             builder.HasData(this.GeneratePetTypes());
         }
-
         private PetType[] GeneratePetTypes()
         {
             ICollection<PetType> types = new HashSet<PetType>();

@@ -1,6 +1,4 @@
-﻿
-using MeetAPaw.Data;
-using MeetAPaw.Data.Models;
+﻿using MeetAPaw.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MeetAPaw.Services.Tests

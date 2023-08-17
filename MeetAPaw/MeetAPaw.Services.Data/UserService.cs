@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Data;
+﻿using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Web.ViewModels.User;
@@ -10,12 +9,10 @@ namespace MeetAPaw.Services.Data
     public class UserService : IUserService
     {
         private readonly MeetAPawDbContext context;
-
         public UserService(MeetAPawDbContext _context)
         {
             this.context = _context;
         }
-
         public async Task<IEnumerable<UserViewModel>> AllAsync()
         {
             var users = await this.context

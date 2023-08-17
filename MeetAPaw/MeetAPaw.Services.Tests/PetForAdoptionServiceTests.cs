@@ -1,9 +1,6 @@
-﻿
-using MeetAPaw.Data.Models;
-using MeetAPaw.Data.Models.Enums;
+﻿using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data;
 using MeetAPaw.Services.Data.Interfaces;
-using MeetAPaw.Web.ViewModels.Pet;
 using MeetAPaw.Web.ViewModels.PetForAdoption;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,9 +1,6 @@
-﻿
-using MeetAPaw.Services.Data.Interfaces;
+﻿using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Services.Data;
-using MeetAPaw.Web.ViewModels.PetForAdoption;
 using MeetAPaw.Data.Models;
-using MeetAPaw.Web.ViewModels.Adopt;
 
 namespace MeetAPaw.Services.Tests
 {

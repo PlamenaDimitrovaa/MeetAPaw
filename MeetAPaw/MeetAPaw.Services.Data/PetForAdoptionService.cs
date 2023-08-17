@@ -1,9 +1,7 @@
-﻿
-using MeetAPaw.Data;
+﻿using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Data.Models.Enums;
 using MeetAPaw.Services.Data.Interfaces;
-using MeetAPaw.Web.ViewModels.Pet;
 using MeetAPaw.Web.ViewModels.PetForAdoption;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,12 +10,10 @@ namespace MeetAPaw.Services.Data
     public class PetForAdoptionService : IPetForAdoptionService
     {
         private readonly MeetAPawDbContext context;
-
         public PetForAdoptionService(MeetAPawDbContext context)
         {
             this.context = context;
         }
-
         public async Task<int> AddPetForAdoptionAsync(AddPetForAdoptionViewModel model)
         {
             PetForAdoption pet = new PetForAdoption()
@@ -41,7 +37,6 @@ namespace MeetAPaw.Services.Data
 
             return pet.Id;
         }
-
         public async Task<PetForAdoptionProfileViewModel?> GetProfileToPetForAdoptionAsync(int id)
         {
             return await context.PetsForAdoption
@@ -64,7 +59,6 @@ namespace MeetAPaw.Services.Data
                  })
              .FirstOrDefaultAsync();
         }
-
         public async Task<EditPetForAdoptionViewModel> GetPetForAdoptionForEditByIdAsync(int id)
         {
             PetForAdoption pet = await this.context
@@ -88,7 +82,6 @@ namespace MeetAPaw.Services.Data
                 ShelterId = pet.ShelterId,
             };
         }
-
         public async Task EditPetForAdoptionByIdAsync(int id, EditPetForAdoptionViewModel model)
         {
             PetForAdoption pet = await this.context
@@ -109,7 +102,6 @@ namespace MeetAPaw.Services.Data
 
             await this.context.SaveChangesAsync();
         }
-
         public async Task<bool> PetForAdoptionExistsByIdAsync(int id)
         {
             bool result = await this.context
@@ -117,7 +109,6 @@ namespace MeetAPaw.Services.Data
 
             return result;
         }
-
         public async Task<PetForAdoptionPreDeleteDetailsViewModel> GetPetForAdoptionForDeleteByIdAsync(int id)
         {
             PetForAdoption pet = await this.context
@@ -130,8 +121,7 @@ namespace MeetAPaw.Services.Data
                 ImageUrl = pet.ImageUrl
             };
         }
-
-        public async Task<PetForAdoptionViewModel> GetPetForAdoptionByIdAsync(int id)
+        public async Task<PetForAdoptionViewModel?> GetPetForAdoptionByIdAsync(int id)
         {
             return await this.context.PetsForAdoption
                 .Where(h => h.Id == id)
@@ -146,7 +136,6 @@ namespace MeetAPaw.Services.Data
                     DateOfBirth = h.DateOfBirth.ToString()
                 }).FirstOrDefaultAsync();
         }
-
         public async Task DeletePetForAdoptionByIdAsync(int id)
         {
             PetForAdoption petToDelete = await this.context

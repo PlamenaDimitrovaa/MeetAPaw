@@ -1,6 +1,4 @@
-﻿
-using MeetAPaw.Web.ViewModels.Adopt;
-using MeetAPaw.Web.ViewModels.Pet;
+﻿using MeetAPaw.Web.ViewModels.Adopt;
 
 namespace MeetAPaw.Services.Data.Models.AdoptPet
 {

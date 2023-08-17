@@ -1,11 +1,8 @@
-﻿
-using MeetAPaw.Data;
+﻿using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Services.Data.Models.AdoptPet;
-using MeetAPaw.Services.Data.Models.Pet;
 using MeetAPaw.Web.ViewModels.Adopt;
-using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.EntityFrameworkCore;
 
 namespace MeetAPaw.Services.Data
@@ -13,12 +10,10 @@ namespace MeetAPaw.Services.Data
     public class AdoptService : IAdoptService
     {
         private readonly MeetAPawDbContext context;
-
         public AdoptService(MeetAPawDbContext context)
         {
             this.context = context;
         }
-
         public async Task<IEnumerable<AdoptPetViewModel>> GetPetsForAdoptionAsync()
         {
             return await context.PetsForAdoption
@@ -36,7 +31,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .ToListAsync();
         }
-
         public async Task<IEnumerable<AdoptPetViewModel>> GetDogsForAdoptionAsync()
         {
             return await context.PetsForAdoption
@@ -54,7 +48,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .ToListAsync();
         }
-
         public async Task<IEnumerable<AdoptPetViewModel>> GetCatsForAdoptionAsync()
         {
             return await context.PetsForAdoption
@@ -72,7 +65,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .ToListAsync();
         }
-
         public async Task<IEnumerable<AdoptPetViewModel>> GetBirdsForAdoptionAsync()
         {
             return await context.PetsForAdoption
@@ -90,7 +82,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .ToListAsync();
         }
-
         public async Task<IEnumerable<AdoptPetViewModel>> GetRabbitsForAdoptionAsync()
         {
             return await context.PetsForAdoption
@@ -108,7 +99,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .ToListAsync();
         }
-
         public async Task<PetForAdoption?> GetPetForAdoptionAsync(int petId)
         {
             var petForAdoption = await context.PetsForAdoption
@@ -125,7 +115,6 @@ namespace MeetAPaw.Services.Data
 
             context.PetsForAdoption.Update(petForAdoption);
         }
-
         public async Task<AdoptPetViewModel?> GetPetForAdoptionByIdAsync(int id)
         {
             return await this.context.PetsForAdoption
@@ -148,7 +137,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .FirstOrDefaultAsync();
         }
-
         public async Task AddAdoption(string adopterId, PetForAdoption petForAdoption)
         {
             var adoption = new Adoption
@@ -162,55 +150,7 @@ namespace MeetAPaw.Services.Data
             await this.context.Adoptions.AddAsync(adoption);
             await context.SaveChangesAsync();
         }
-
-
-//        IQueryable<Pet> petsQuery = this.context
-//                .Pets
-//                .AsQueryable();
-
-
-//            if (queryModel.PetType != "All" && queryModel.PetType != null)
-//            {
-//                petsQuery = petsQuery
-//                    .Where(p => p.PetType.Name == queryModel.PetType);
-//            }
-
-//            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
-//            {
-//                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
-
-//    petsQuery = petsQuery
-//        .Where(p => EF.Functions.Like(p.Name, wildCard) ||
-//                                EF.Functions.Like(p.Address, wildCard) ||
-//                                EF.Functions.Like(p.Breed, wildCard) ||
-//                                EF.Functions.Like(p.PetType.Name, wildCard));
-//            }
-
-//var allPets = await petsQuery
-//    .Skip((queryModel.CurrentPage - 1) * queryModel.PetsPerPage)
-//    .Take(queryModel.PetsPerPage)
-//    .Select(p => new PetViewModel
-//    {
-//        Id = p.Id,
-//        Name = p.Name,
-//        Address = p.Address,
-//        Description = p.Description,
-//        ImageUrl = p.ImageUrl,
-//        Gender = p.Gender.ToString(),
-//        DateOfBirth = p.DateOfBirth.ToString(),
-//        PetType = p.PetType.Name,
-//        Breed = p.Breed
-//    })
-//    .ToListAsync();
-
-//int totalPets = petsQuery.Count();
-
-//return new AllPetsFilteredAndPagesServiceModel()
-//{
-//    TotalPetsCount = totalPets,
-//    Pets = allPets
-//};
-public async Task<AllPetsForAdoptionFilteredAndPagesServiceModel> AllAsync(AllPetsForAdoptionQueryModel queryModel)
+        public async Task<AllPetsForAdoptionFilteredAndPagesServiceModel> AllAsync(AllPetsForAdoptionQueryModel queryModel)
         {
             IQueryable<PetForAdoption> petsQuery = this.context
                 .PetsForAdoption

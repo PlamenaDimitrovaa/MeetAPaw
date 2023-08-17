@@ -10,12 +10,12 @@
 
 <div class="container-fluid padding">
     <div class="row">
+        <h1 class="text-center">All Shelters</h1>
         <div class="row padding justify-content-around">
-           <img src="~/adoptMePhoto.png" class="card-img-top w-50" alt="Shelter Photo">
             @foreach (var shelter in Model)
             {
                 <div class="card mt-3" style="width: 18rem;">
-                    <img src="~/logo.png" class="card-img-top" alt="Shelter Logo Photo">
+                        <img src="@shelter.ImageUrl" class="card-img-top" alt="Shelter Photo">
                     <div class="card-body">
                         <h4 class="card-title">@shelter.Name</h4>
                         <h5 class="card-subtitle mb-2 text-body-secondary">@shelter.Address</h5>

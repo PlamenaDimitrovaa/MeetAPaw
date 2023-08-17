@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Data.Models;
+﻿using MeetAPaw.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

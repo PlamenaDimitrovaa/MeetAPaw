@@ -14,5 +14,8 @@ namespace MeetAPaw.Web.ViewModels.Shelter
         [Required]
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
         public string Address { get; set; } = null!;
+
+        [Required(AllowEmptyStrings = false)]
+        public string ImageUrl { get; set; } = null!;
     }
 }

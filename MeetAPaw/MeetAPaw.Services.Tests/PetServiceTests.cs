@@ -1,11 +1,8 @@
-using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Services.Data;
 using MeetAPaw.Services.Data.Interfaces;
 using MeetAPaw.Web.ViewModels.Pet;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using Moq.EntityFrameworkCore;
 
 namespace MeetAPaw.Services.Tests
 {

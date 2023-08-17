@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static MeetAPaw.Common.EntityValidationConstants.Shelter;
 
 namespace MeetAPaw.Data.Models
@@ -11,7 +10,6 @@ namespace MeetAPaw.Data.Models
             this.PetsForAdoption = new HashSet<PetForAdoption>();
             this.Adoptions = new HashSet<Adoption>();
         }
-
         public int Id { get; set; }
 
         [Required]
@@ -21,6 +19,9 @@ namespace MeetAPaw.Data.Models
         [Required]
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; } = null!;
+
+        [Required(AllowEmptyStrings = false)]
+        public string ImageUrl { get; set; } = null!;
 
         public virtual ICollection<PetForAdoption> PetsForAdoption { get; set; }
     

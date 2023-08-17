@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Data;
+﻿using MeetAPaw.Data;
 using MeetAPaw.Data.Models;
 using MeetAPaw.Data.Models.Enums;
 using MeetAPaw.Services.Data.Interfaces;
@@ -17,7 +16,6 @@ namespace MeetAPaw.Services.Data
         {
             this.context = context;
         }
-
         public async Task<int> AddPetAsync(AddPetViewModel model, string ownerId)
         {
             Pet pet = new Pet()
@@ -39,7 +37,6 @@ namespace MeetAPaw.Services.Data
 
             return pet.Id;
         }
-
         public async Task<IEnumerable<PetViewModel>> GetAllPetsAsync()
         {
             return await context.Pets.Select(p => new PetViewModel()
@@ -56,7 +53,6 @@ namespace MeetAPaw.Services.Data
             })
                 .ToListAsync();
         }
-
         public async Task<PetViewModel?> GetPetByIdAsync(int id)
         {
             return await this.context.Pets
@@ -75,7 +71,6 @@ namespace MeetAPaw.Services.Data
                 })
                 .FirstOrDefaultAsync();
         }
-
         public async Task<EditPetViewModel> GetPetForEditByIdAsync(int id)
         {
             Pet pet = await this.context
@@ -98,7 +93,6 @@ namespace MeetAPaw.Services.Data
                 PetTypeId = pet.PetTypeId
             };
         }
-
         public async Task EditPetByIdAsync(int id, EditPetViewModel model)
         {
             Pet pet = await this.context
@@ -118,7 +112,6 @@ namespace MeetAPaw.Services.Data
 
             await this.context.SaveChangesAsync();
         }
-
         public async Task<PetProfileViewModel?> GetProfileAsync(int id)
         {
             return await context.Pets
@@ -139,7 +132,6 @@ namespace MeetAPaw.Services.Data
             })
             .FirstOrDefaultAsync();
         }
-
         public async Task<bool> PetExistsByIdAsync(int id)
         {
             bool result = await this.context
@@ -148,7 +140,6 @@ namespace MeetAPaw.Services.Data
 
             return result;
         }
-
         public async Task<PetPreDeleteDetailsViewModel> GetPetForDeleteByIdAsync(int id)
         {
             Pet pet = await this.context
@@ -162,7 +153,6 @@ namespace MeetAPaw.Services.Data
                 ImageUrl = pet.ImageUrl
             };
         }
-
         public async Task DeletePetByIdAsync(int id)
         {
             Pet petToDelete = await this.context
@@ -172,13 +162,11 @@ namespace MeetAPaw.Services.Data
             this.context.Pets.Remove(petToDelete);
             await this.context.SaveChangesAsync();
         }
-
         public async Task<AllPetsFilteredAndPagesServiceModel> AllAsync(AllPetsQueryModel queryModel)
         {
             IQueryable<Pet> petsQuery = this.context
                 .Pets
                 .AsQueryable();
-
 
             if (queryModel.PetType != "All" && queryModel.PetType != null)
             {

@@ -1,6 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static MeetAPaw.Common.EntityValidationConstants.Adoption;
 
 namespace MeetAPaw.Data.Models
 {
@@ -21,12 +21,12 @@ namespace MeetAPaw.Data.Models
 
         public DateTime Date { get; set; }
 
+        [MaxLength(MoreInformationMaxLength)]
         public string? MoreInformation { get; set; }
 
         public int ShelterId { get; set; }
 
         [ForeignKey(nameof(ShelterId))]
         public virtual Shelter Shelter { get; set; } = null!;
-
     }
 }

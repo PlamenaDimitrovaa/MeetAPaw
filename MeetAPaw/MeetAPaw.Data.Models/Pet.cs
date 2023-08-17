@@ -1,5 +1,4 @@
-﻿
-using MeetAPaw.Data.Models.Enums;
+﻿using MeetAPaw.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static MeetAPaw.Common.EntityValidationConstants.Pet;
@@ -31,7 +30,7 @@ namespace MeetAPaw.Data.Models
 
         [Display(Name = "Date Of Birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dddd, dd MMMM yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
