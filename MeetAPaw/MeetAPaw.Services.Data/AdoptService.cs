@@ -163,7 +163,54 @@ namespace MeetAPaw.Services.Data
             await context.SaveChangesAsync();
         }
 
-        public async Task<AllPetsForAdoptionFilteredAndPagesServiceModel> AllAsync(AllPetsForAdoptionQueryModel queryModel)
+
+//        IQueryable<Pet> petsQuery = this.context
+//                .Pets
+//                .AsQueryable();
+
+
+//            if (queryModel.PetType != "All" && queryModel.PetType != null)
+//            {
+//                petsQuery = petsQuery
+//                    .Where(p => p.PetType.Name == queryModel.PetType);
+//            }
+
+//            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+//            {
+//                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+//    petsQuery = petsQuery
+//        .Where(p => EF.Functions.Like(p.Name, wildCard) ||
+//                                EF.Functions.Like(p.Address, wildCard) ||
+//                                EF.Functions.Like(p.Breed, wildCard) ||
+//                                EF.Functions.Like(p.PetType.Name, wildCard));
+//            }
+
+//var allPets = await petsQuery
+//    .Skip((queryModel.CurrentPage - 1) * queryModel.PetsPerPage)
+//    .Take(queryModel.PetsPerPage)
+//    .Select(p => new PetViewModel
+//    {
+//        Id = p.Id,
+//        Name = p.Name,
+//        Address = p.Address,
+//        Description = p.Description,
+//        ImageUrl = p.ImageUrl,
+//        Gender = p.Gender.ToString(),
+//        DateOfBirth = p.DateOfBirth.ToString(),
+//        PetType = p.PetType.Name,
+//        Breed = p.Breed
+//    })
+//    .ToListAsync();
+
+//int totalPets = petsQuery.Count();
+
+//return new AllPetsFilteredAndPagesServiceModel()
+//{
+//    TotalPetsCount = totalPets,
+//    Pets = allPets
+//};
+public async Task<AllPetsForAdoptionFilteredAndPagesServiceModel> AllAsync(AllPetsForAdoptionQueryModel queryModel)
         {
             IQueryable<PetForAdoption> petsQuery = this.context
                 .PetsForAdoption
@@ -188,8 +235,8 @@ namespace MeetAPaw.Services.Data
             }
 
             var allPets = await petsQuery
-                .Where(p => p.IsAdopted == false)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.PetsPerPage)
+                .Where(p => p.IsAdopted == false)
                 .Take(queryModel.PetsPerPage)
                 .Select(p => new AdoptPetViewModel
                 {
