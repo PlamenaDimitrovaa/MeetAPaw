@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static MeetAPaw.Web.Infrastructure.Extensions.WebApplicationBuilderExtensions;
 using static MeetAPaw.Common.GeneralApplicationConstants;
+using MeetAPaw.Web.Hubs;
 
 namespace MeetAPaw.Web
 {
@@ -52,6 +53,8 @@ namespace MeetAPaw.Web
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                     options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
                 });
+
+            builder.Services.AddSignalR();
 
             builder.Services.AddMvc(options =>
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
@@ -110,6 +113,8 @@ namespace MeetAPaw.Web
                 app.MapDefaultControllerRoute();
                 app.MapRazorPages();
             });
+
+            app.MapHub<ChatHub>("/chatHub");
 
             app.Run();
         }

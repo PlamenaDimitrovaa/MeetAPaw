@@ -6,7 +6,7 @@ namespace MeetAPaw.Web.Controllers
     [Authorize]
     public class ChatController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Chat()
         {
             return View();
         }
