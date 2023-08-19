@@ -123,5 +123,21 @@ namespace MeetAPaw.Services.Data
                 .Users
                 .FindAsync(userId);
         }
+
+        public async Task<EditUserViewModel> GetUserForEditAsync(string userId)
+        {
+            var user = await this.context
+                .Users
+                .Where(u => u.Id.ToString() == userId)
+                .Select(u => new EditUserViewModel
+                {
+                    Id = u.Id.ToString(),
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                })
+                .FirstOrDefaultAsync();
+
+            return user;
+        }
     }
 }

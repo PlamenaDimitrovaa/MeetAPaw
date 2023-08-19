@@ -13,5 +13,7 @@ namespace MeetAPaw.Services.Data.Interfaces
         Task<ApplicationUser?> GetUserByIdAsync(string userId);
         Task<IEnumerable<PetViewModel>> GetUserPetsAsync(string userId);
         Task<IEnumerable<AdoptPetViewModel>> GetUserAdoptedPetsAsync(string userId);
+        Task EditUserAsync(EditUserViewModel model);
+        Task<EditUserViewModel> GetUserForEditAsync(string userId);
     }
 }

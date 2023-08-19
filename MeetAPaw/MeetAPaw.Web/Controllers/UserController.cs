@@ -64,5 +64,47 @@ namespace MeetAPaw.Web.Controllers
             var pets = await this.userService.GetUserAdoptedPetsAsync(userId);
             return View(pets);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            try
+            {
+                var user = await this.userService.GetUserForEditAsync(User.GetId());
+
+                if (user == null)
+                {
+                    return RedirectToAction(nameof(Details));
+                }
+
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError($"{ex.GetType()}: {ex.Message}, \n {ex.StackTrace}");
+                return RedirectToAction(nameof(Details));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                await this.userService.EditUserAsync(model);
+
+                return RedirectToAction(nameof(Details));
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError($"{ex.GetType()}: {ex.Message}, \n {ex.StackTrace}");
+                return View(model);
+            }
+        }
     }
 }
