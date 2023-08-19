@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\ViewModels\**" />
+    <Content Remove="Areas\Admin\ViewModels\**" />
+    <EmbeddedResource Remove="Areas\Admin\ViewModels\**" />
+    <None Remove="Areas\Admin\ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Griesoft.AspNetCore.ReCaptcha" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
@@ -43,10 +50,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
   </ItemGroup>
 
 </Project>

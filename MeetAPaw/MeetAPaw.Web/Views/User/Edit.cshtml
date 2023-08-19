@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-8 align-item-center">
                 <div class="border border">
-                    <h3 class="bg-gray p-4">Edit Profile</h3>
+                    <h3 class="bg-gray p-4 text-center">Edit Profile</h3>
                     <form method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="@Model.Id" />
                         <div asp-validation-summary="ModelOnly" class="text-danger ml-4"></div>
@@ -22,7 +22,7 @@
                                 <input asp-for="@Model.LastName" class="form-control mb-3" placeholder="Last Name" autocomplete="username" aria-required="true" />
                                 <span asp-validation-for="@Model.LastName" class="text-danger"></span>
                             </div>
-                            <button type="submit" class="btn btn-primary font-weight-bold mt-3">Edit</button>
+                            <button type="submit" class="btn btn-danger font-weight-bold mt-3 w-100">Edit</button>
                         </fieldset>
                     </form>
                 </div>

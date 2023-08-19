@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetAPaw.Services.Data.Mode
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8251AAE7-6021-4F09-92F0-6F3775274BD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetAPaw.Services.Tests", "MeetAPaw.Services.Tests\MeetAPaw.Services.Tests.csproj", "{8A180034-C5C0-4A33-A6EF-7C09520AFFD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetAPaw.Services.Tests", "MeetAPaw.Services.Tests\MeetAPaw.Services.Tests.csproj", "{8A180034-C5C0-4A33-A6EF-7C09520AFFD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

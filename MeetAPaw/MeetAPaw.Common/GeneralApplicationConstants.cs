@@ -11,5 +11,9 @@
         public const string AdminAreaName = "Admin";
         public const string AdminRoleName = "Administrator";
         public const string DevelopmentAdminEmail = "plamena3456@abv.bg";
+
+        public const string usersCookie = "isOnline";
+
+        public const int LastActivityBeforeOfflineMinutes = 10;
     }
 }
