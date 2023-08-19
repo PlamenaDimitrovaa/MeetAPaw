@@ -1,0 +1,20 @@
+﻿@model IEnumerable<PetViewModel>
+
+@{
+    ViewBag.Title = "My Pets";
+}
+
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No pets founded!</h2>
+}
+
+
+<div class="row">
+    <partial name="_AllPetsPartialView" model="@Model" />
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

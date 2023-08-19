@@ -1,0 +1,36 @@
+﻿@model ProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<input id="userId" type="hidden" value="@Model.Id" />
+
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="my-3">@Model.FirstName @Model.LastName</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-3" style="font-size:17px">Full Name</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0" style="font-size:17px">@Model.FirstName @Model.LastName</p>
+                        </div>
+                    </div>
+                    <div class="widget user-dashboard-menu">
+                        <a asp-controller="User" asp-action="OwnedPets" class="btn btn-outline-primary"><i class="fa fa-user"></i>My Pets</a>
+                        <a asp-controller="User" asp-action="AdoptedPets" class="btn btn-outline-primary"><i class="fa-solid fa-car-on"></i>Adopted pets</a>
+                        <a asp-controller="Pet" asp-action="Add" class="btn btn-outline-primary"><i class="fa-solid fa-car"></i>Add pet</a>
+                        <a asp-controller="PetForAdoption" asp-action="Add" class="btn btn-outline-primary"><i class="fa-solid fa-car"></i>Add pet for adoption</a>
+                    </div>
+                </div>
+            </div>
+        </div>

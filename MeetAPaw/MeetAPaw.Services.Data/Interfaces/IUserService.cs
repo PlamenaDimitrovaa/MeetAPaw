@@ -1,4 +1,7 @@
-﻿using MeetAPaw.Web.ViewModels.User;
+﻿using MeetAPaw.Data.Models;
+using MeetAPaw.Web.ViewModels.Adopt;
+using MeetAPaw.Web.ViewModels.Pet;
+using MeetAPaw.Web.ViewModels.User;
 
 namespace MeetAPaw.Services.Data.Interfaces
 {
@@ -6,5 +9,9 @@ namespace MeetAPaw.Services.Data.Interfaces
     {
         Task<string> UserFullName(string email);
         Task<IEnumerable<UserViewModel>> AllAsync();
+        Task<ProfileViewModel> GetProfileInfoAsync(string userId);
+        Task<ApplicationUser?> GetUserByIdAsync(string userId);
+        Task<IEnumerable<PetViewModel>> GetUserPetsAsync(string userId);
+        Task<IEnumerable<AdoptPetViewModel>> GetUserAdoptedPetsAsync(string userId);
     }
 }
